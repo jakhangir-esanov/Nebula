@@ -1,4 +1,5 @@
 ﻿using Nebula.Domain.Commons;
+using Nebula.Domain.Entities.Attachments;
 
 namespace Nebula.Domain.Entities.Cars;
 
@@ -10,5 +11,8 @@ public sealed class CarCategory : Auditable
     public double? Discount { get; set; }
 
     public ICollection<Car> Cars { get; set; }
+
+    public long? AttachmentId { get; set; }
+    public Attachment Attachment { get; set; }
 }
 
