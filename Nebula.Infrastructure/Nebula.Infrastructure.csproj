@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Nebula.Application\Nebula.Application.csproj" />
     <ProjectReference Include="..\Nebula.Domain\Nebula.Domain.csproj" />
   </ItemGroup>
 

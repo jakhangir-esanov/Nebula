@@ -6,4 +6,73 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Nebula.Domain\Nebula.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.8.1" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjectionFixed" Version="5.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Commands\Attachments\CreateAttachment\" />
+    <Folder Include="Commands\Attachments\DeleteAttachment\" />
+    <Folder Include="Commands\Attachments\CreateCarAttachment\" />
+    <Folder Include="Commands\Attachments\CreateOfficeAttachment\" />
+    <Folder Include="Commands\Attachments\DeleteCarAttachment\" />
+    <Folder Include="Commands\Attachments\DeleteOfficeAttachment\" />
+    <Folder Include="Commands\Attachments\UpdateOfficeAttachment\" />
+    <Folder Include="Commands\Attachments\UpdateCarAttachment\" />
+    <Folder Include="Commands\Attachments\UpdateAttachment\" />
+    <Folder Include="Commands\Cars\CreateCar\" />
+    <Folder Include="Commands\Cars\CreateCarCategory\" />
+    <Folder Include="Commands\Cars\DeleteCar\" />
+    <Folder Include="Commands\Cars\DeleteCarCategory\" />
+    <Folder Include="Commands\Cars\UpdateCarCategory\" />
+    <Folder Include="Commands\Cars\UpdateCar\" />
+    <Folder Include="Commands\Feedbacks\CreateFeedback\" />
+    <Folder Include="Commands\Feedbacks\DeleteFeedback\" />
+    <Folder Include="Commands\Feedbacks\UpdateFeedback\" />
+    <Folder Include="Commands\Insurances\CreateInsurance\" />
+    <Folder Include="Commands\Insurances\DeleteInsurance\" />
+    <Folder Include="Commands\Insurances\CreateInsuranceCoverage\" />
+    <Folder Include="Commands\Insurances\DeleteInsuranceCoverage\" />
+    <Folder Include="Commands\Insurances\UpdateInsuranceCoverage\" />
+    <Folder Include="Commands\Insurances\UpdateInsurance\" />
+    <Folder Include="Commands\Offices\CreateOffice\" />
+    <Folder Include="Commands\Offices\DeleteOffice\" />
+    <Folder Include="Commands\Offices\UpdateOffice\" />
+    <Folder Include="Commands\Payments\CreatePayment\" />
+    <Folder Include="Commands\Payments\CreatePaymentHistory\" />
+    <Folder Include="Commands\Payments\DeletePayment\" />
+    <Folder Include="Commands\Payments\DeletePaymentHistory\" />
+    <Folder Include="Commands\Payments\UpdatePaymentHistory\" />
+    <Folder Include="Commands\Payments\UpdatePayment\" />
+    <Folder Include="Commands\People\CreateCustomer\" />
+    <Folder Include="Commands\People\DeleteCustomer\" />
+    <Folder Include="Commands\People\CreateUser\" />
+    <Folder Include="Commands\People\DeleteUser\" />
+    <Folder Include="Commands\People\UpdateUser\" />
+    <Folder Include="Commands\People\UpdateCustomer\" />
+    <Folder Include="Commands\Rentals\CreateRental\" />
+    <Folder Include="Commands\Rentals\DeleteRental\" />
+    <Folder Include="Commands\Rentals\UpdateRental\" />
+    <Folder Include="Queries\Attachments\GetAttachment\" />
+    <Folder Include="Queries\Attachments\GetCarAttachment\" />
+    <Folder Include="Queries\Attachments\GetOfficeAttachment\" />
+    <Folder Include="Queries\Cars\GetCar\" />
+    <Folder Include="Queries\Cars\GetCarCategory\" />
+    <Folder Include="Queries\Feedbacks\GetFeedback\" />
+    <Folder Include="Queries\Insurances\GetInsurance\" />
+    <Folder Include="Queries\Insurances\GetInsuranceCoverage\" />
+    <Folder Include="Queries\Offices\GetOffice\" />
+    <Folder Include="Queries\Payments\GetPayment\" />
+    <Folder Include="Queries\Payments\GetPaymentHistory\" />
+    <Folder Include="Queries\People\GetCustomer\" />
+    <Folder Include="Queries\People\GetUser\" />
+    <Folder Include="Queries\Rentals\GetRental\" />
+  </ItemGroup>
+
 </Project>
