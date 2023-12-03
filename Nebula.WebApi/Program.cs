@@ -1,5 +1,11 @@
+using MediatR;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
+using Nebula.Application.Interfaces;
 using Nebula.Infrastructure.Contexts;
+using Nebula.Infrastructure.Repository;
+using Nebula.Application.Commands.People.CreateCustomer;
+using Nebula.Domain.Entities.People;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +19,20 @@ builder.Services.AddSwaggerGen();
 //AppDbContext
 builder.Services.AddDbContext<AppDbContext>(options
     => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+//MediatR
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(Program).Assembly));
+
+//MediatR
+builder.Services.AddTransient<IRequestHandler<CreateCustomerCommand, Customer>, CreateCustomerCommandHandler>();
+
+
+//FluentValidation
+builder.Services.AddValidatorsFromAssemblyContaining<Program>();
+
+//Repository
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+
 
 var app = builder.Build();
 

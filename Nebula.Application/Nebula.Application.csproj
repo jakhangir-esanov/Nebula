@@ -13,19 +13,11 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.8.1" />
+    <PackageReference Include="MediatR" Version="12.2.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjectionFixed" Version="5.1.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Commands\Attachments\CreateAttachment\" />
-    <Folder Include="Commands\Attachments\DeleteAttachment\" />
-    <Folder Include="Commands\Attachments\CreateCarAttachment\" />
-    <Folder Include="Commands\Attachments\CreateOfficeAttachment\" />
-    <Folder Include="Commands\Attachments\DeleteCarAttachment\" />
-    <Folder Include="Commands\Attachments\DeleteOfficeAttachment\" />
-    <Folder Include="Commands\Attachments\UpdateOfficeAttachment\" />
-    <Folder Include="Commands\Attachments\UpdateCarAttachment\" />
-    <Folder Include="Commands\Attachments\UpdateAttachment\" />
     <Folder Include="Commands\Cars\CreateCar\" />
     <Folder Include="Commands\Cars\CreateCarCategory\" />
     <Folder Include="Commands\Cars\DeleteCar\" />
@@ -50,12 +42,6 @@
     <Folder Include="Commands\Payments\DeletePaymentHistory\" />
     <Folder Include="Commands\Payments\UpdatePaymentHistory\" />
     <Folder Include="Commands\Payments\UpdatePayment\" />
-    <Folder Include="Commands\People\CreateCustomer\" />
-    <Folder Include="Commands\People\DeleteCustomer\" />
-    <Folder Include="Commands\People\CreateUser\" />
-    <Folder Include="Commands\People\DeleteUser\" />
-    <Folder Include="Commands\People\UpdateUser\" />
-    <Folder Include="Commands\People\UpdateCustomer\" />
     <Folder Include="Commands\Rentals\CreateRental\" />
     <Folder Include="Commands\Rentals\DeleteRental\" />
     <Folder Include="Commands\Rentals\UpdateRental\" />

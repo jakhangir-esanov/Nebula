@@ -27,11 +27,6 @@ public class Repository<T> : IRepository<T> where T : Auditable
         this.appDbContext.Entry(entity).State = EntityState.Modified;
     }
 
-    public void Delete(T entity)
-    {
-        entity.IsDeleted = true;
-    }
-
     public void Drop(T entity)
     {
         this.dbSet.Remove(entity);
@@ -39,7 +34,7 @@ public class Repository<T> : IRepository<T> where T : Auditable
 
     public async Task<T> SelectAsync(Expression<Func<T, bool>> expression = null!, string[] includes = null!)
     {
-        IQueryable<T> query = dbSet.Where(x => !x.IsDeleted).Where(expression);
+        IQueryable<T> query = dbSet.Where(expression);
 
         if(includes is not null)
             foreach(var include in includes)
@@ -48,12 +43,9 @@ public class Repository<T> : IRepository<T> where T : Auditable
         return (await query.FirstOrDefaultAsync(expression))!;
     }
 
-    public async Task<T> SelectNoFilterAsync(Expression<Func<T, bool>> expression)
-        => (await this.dbSet.FirstOrDefaultAsync(expression))!;
-
     public IQueryable<T> SelectAll(Expression<Func<T, bool>> expression = null!, bool isNoTracking = true, string[] includes = null!)
     {
-        IQueryable<T> query = (expression is null ? dbSet : dbSet.Where(expression)).Where(x => !x.IsDeleted);
+        IQueryable<T> query = expression is null ? dbSet : dbSet.Where(expression);
 
         query = isNoTracking ? query.AsNoTracking() : query;
 
