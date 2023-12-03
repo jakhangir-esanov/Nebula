@@ -1,13 +1,11 @@
-﻿using Nebula.Application.Interfaces;
-using Nebula.Domain.Entities.People;
-using Nebula.Domain.Exceptions;
+﻿using Nebula.Domain.Entities.People;
 
 namespace Nebula.Application.Commands.People.UpdateCustomer;
 
 public record UpdateCustomerCommand : IRequest<Customer>
 {
-    public UpdateCustomerCommand(long id, string firstName, string lastName, string email, string phone, 
-        string password, DateTime dateOfBirth, string address, string drivingLicenseNumber, 
+    public UpdateCustomerCommand(long id, string firstName, string lastName, string email, string phone,
+        string password, DateTime dateOfBirth, string address, string drivingLicenseNumber,
         DateTime drivingLicenseExpirationDate)
     {
         Id = id;

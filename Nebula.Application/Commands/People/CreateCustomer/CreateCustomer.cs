@@ -1,12 +1,10 @@
-﻿using Nebula.Application.Interfaces;
-using Nebula.Domain.Entities.People;
-using Nebula.Domain.Exceptions;
+﻿using Nebula.Domain.Entities.People;
 
 namespace Nebula.Application.Commands.People.CreateCustomer;
 
 public record CreateCustomerCommand : IRequest<Customer>
 {
-    public CreateCustomerCommand(string firstName, string lastName, string email, string phone, string password, 
+    public CreateCustomerCommand(string firstName, string lastName, string email, string phone, string password,
         DateTime dateOfBirth, string address, string drivingLicenseNumber, DateTime drivingLicenseExpirationDate)
     {
         FirstName = firstName;

@@ -1,7 +1,5 @@
-﻿using Nebula.Application.Interfaces;
-using Nebula.Domain.Entities.People;
+﻿using Nebula.Domain.Entities.People;
 using Nebula.Domain.Enums;
-using Nebula.Domain.Exceptions;
 
 namespace Nebula.Application.Commands.People.CreateUser;
 

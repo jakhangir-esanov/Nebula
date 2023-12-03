@@ -1,6 +1,4 @@
-﻿using Nebula.Application.Interfaces;
-using Nebula.Domain.Entities.People;
-using Nebula.Domain.Exceptions;
+﻿using Nebula.Domain.Entities.People;
 
 namespace Nebula.Application.Commands.People.DeleteCustomer;
 

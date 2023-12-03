@@ -18,21 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Commands\Cars\CreateCar\" />
-    <Folder Include="Commands\Cars\CreateCarCategory\" />
-    <Folder Include="Commands\Cars\DeleteCar\" />
-    <Folder Include="Commands\Cars\DeleteCarCategory\" />
-    <Folder Include="Commands\Cars\UpdateCarCategory\" />
-    <Folder Include="Commands\Cars\UpdateCar\" />
-    <Folder Include="Commands\Feedbacks\CreateFeedback\" />
-    <Folder Include="Commands\Feedbacks\DeleteFeedback\" />
-    <Folder Include="Commands\Feedbacks\UpdateFeedback\" />
-    <Folder Include="Commands\Insurances\CreateInsurance\" />
-    <Folder Include="Commands\Insurances\DeleteInsurance\" />
-    <Folder Include="Commands\Insurances\CreateInsuranceCoverage\" />
-    <Folder Include="Commands\Insurances\DeleteInsuranceCoverage\" />
-    <Folder Include="Commands\Insurances\UpdateInsuranceCoverage\" />
-    <Folder Include="Commands\Insurances\UpdateInsurance\" />
     <Folder Include="Commands\Offices\CreateOffice\" />
     <Folder Include="Commands\Offices\DeleteOffice\" />
     <Folder Include="Commands\Offices\UpdateOffice\" />
