@@ -18,19 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Commands\Offices\CreateOffice\" />
-    <Folder Include="Commands\Offices\DeleteOffice\" />
-    <Folder Include="Commands\Offices\UpdateOffice\" />
-    <Folder Include="Commands\Payments\CreatePayment\" />
-    <Folder Include="Commands\Payments\CreatePaymentHistory\" />
-    <Folder Include="Commands\Payments\DeletePayment\" />
-    <Folder Include="Commands\Payments\DeletePaymentHistory\" />
-    <Folder Include="Commands\Payments\UpdatePaymentHistory\" />
-    <Folder Include="Commands\Payments\UpdatePayment\" />
-    <Folder Include="Commands\Rentals\CreateRental\" />
-    <Folder Include="Commands\Rentals\DeleteRental\" />
-    <Folder Include="Commands\Rentals\UpdateRental\" />
-    <Folder Include="Queries\Attachments\GetAttachment\" />
     <Folder Include="Queries\Attachments\GetCarAttachment\" />
     <Folder Include="Queries\Attachments\GetOfficeAttachment\" />
     <Folder Include="Queries\Cars\GetCar\" />
@@ -42,7 +29,6 @@
     <Folder Include="Queries\Payments\GetPayment\" />
     <Folder Include="Queries\Payments\GetPaymentHistory\" />
     <Folder Include="Queries\People\GetCustomer\" />
-    <Folder Include="Queries\People\GetUser\" />
     <Folder Include="Queries\Rentals\GetRental\" />
   </ItemGroup>
 
