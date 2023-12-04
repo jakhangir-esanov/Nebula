@@ -20,8 +20,4 @@ public class UserController : ControllerBase
     public async Task<IActionResult> CreateAsync(CreateUserCommand dto)
         => Ok(await this.mediator.Send(new CreateUserCommand(dto.FirstName, dto.LastName, dto.username, dto.Email,
             dto.Phone, dto.Password, dto.DateOfBirth, dto.UserRole, dto.OfficeId)));
-
-    [HttpGet("get-by-id/{id:long}")]
-    public async Task<IActionResult> GetbyIdAsync(long id)
-        => Ok(await this.mediator.Send(new RetrieveByIdQuery() { Id = id }));
 }

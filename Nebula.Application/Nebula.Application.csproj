@@ -17,19 +17,4 @@
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjectionFixed" Version="5.1.2" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Queries\Attachments\GetCarAttachment\" />
-    <Folder Include="Queries\Attachments\GetOfficeAttachment\" />
-    <Folder Include="Queries\Cars\GetCar\" />
-    <Folder Include="Queries\Cars\GetCarCategory\" />
-    <Folder Include="Queries\Feedbacks\GetFeedback\" />
-    <Folder Include="Queries\Insurances\GetInsurance\" />
-    <Folder Include="Queries\Insurances\GetInsuranceCoverage\" />
-    <Folder Include="Queries\Offices\GetOffice\" />
-    <Folder Include="Queries\Payments\GetPayment\" />
-    <Folder Include="Queries\Payments\GetPaymentHistory\" />
-    <Folder Include="Queries\People\GetCustomer\" />
-    <Folder Include="Queries\Rentals\GetRental\" />
-  </ItemGroup>
-
 </Project>

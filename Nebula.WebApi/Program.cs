@@ -12,6 +12,7 @@ using Nebula.Application.DTOs;
 using Nebula.Application.Commands.Offices.CreateOffice;
 using Nebula.Domain.Entities.Offices;
 using Nebula.Application.Commands.People.CreateUser;
+using Nebula.Application.Queries.Attachments.GetCarAttachment;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,8 +32,8 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(Pro
 
 //MediatR
 builder.Services.AddTransient<IRequestHandler<CreateCustomerCommand, Customer>, CreateCustomerCommandHandler>();
+builder.Services.AddTransient<IRequestHandler<GetAllCarAttachmentQuery, List<CarAttachmentResultDto>>, GetAllCarAttachmentQueryHandler>();
 builder.Services.AddTransient<IRequestHandler<CreateUserCommand, User>, CreateUserCommandHandler>();
-builder.Services.AddTransient<IRequestHandler<RetrieveByIdQuery, UserResultDto>, RetrieveByIdQueryHandler>();
 builder.Services.AddTransient<IRequestHandler<CreateOfficeCommand, Office>, CreateOfficeCommandHandler>();
 
 //AutoMapper

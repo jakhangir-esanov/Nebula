@@ -15,7 +15,7 @@ public class MappingProfile : Profile
     public MappingProfile()
     {
         CreateMap<CarAttachmentResultDto, CarAttachment>().ReverseMap();
-        CreateMap<CarCategoryResultDto, CarCategory>().ReverseMap();
+        CreateMap<CarCategory, CarCategoryResultDto>().ReverseMap();
         CreateMap<CarResultDto, Car>().ReverseMap();
         CreateMap<CustomerResultDto, Customer>().ReverseMap();
         CreateMap<FeedbackResultDto, Feedback>().ReverseMap();
