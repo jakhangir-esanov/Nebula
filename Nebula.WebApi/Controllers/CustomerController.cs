@@ -1,9 +1,4 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using Nebula.Application.Commands.People.CreateCustomer;
-using Nebula.Application.Commands.People.DeleteCustomer;
-using Nebula.Application.Commands.People.UpdateCustomer;
-using Nebula.Application.Queries.People.GetCustomer;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace Nebula.WebApi.Controllers;
 
@@ -20,8 +15,8 @@ public class CustomerController : ControllerBase
 
     [HttpPost("create")]
     public async Task<IActionResult> CreateAsync(CreateCustomerCommand command)
-        => Ok(await this.mediator.Send(new CreateCustomerCommand(command.FirstName, command.LastName,command.Email,
-            command.Phone, command.Password, command.DateOfBirth, command.Address, command.DrivingLicenseNumber, 
+        => Ok(await this.mediator.Send(new CreateCustomerCommand(command.FirstName, command.LastName, command.Email,
+            command.Phone, command.Password, command.DateOfBirth, command.Address, command.DrivingLicenseNumber,
             command.DrivingLicenseExpirationDate)));
 
     [HttpPut("update")]
@@ -36,7 +31,7 @@ public class CustomerController : ControllerBase
 
     [HttpGet("get-by-id/{id:long}")]
     public async Task<IActionResult> GetByIdAsync(long id)
-        => Ok(await this.mediator.Send(new GetCustomerQuery() { Id = id}));
+        => Ok(await this.mediator.Send(new GetCustomerQuery() { Id = id }));
 
     [HttpGet("get-all")]
     public async Task<IActionResult> GetAll()

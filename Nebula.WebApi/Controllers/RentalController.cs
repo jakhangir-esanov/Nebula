@@ -1,9 +1,4 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using Nebula.Application.Commands.Rentals.CreateRental;
-using Nebula.Application.Commands.Rentals.DeleteRental;
-using Nebula.Application.Commands.Rentals.UpdateRental;
-using Nebula.Application.Queries.Rentals.GetRental;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace Nebula.WebApi.Controllers;
 
@@ -33,7 +28,7 @@ public class RentalController : ControllerBase
 
     [HttpGet("get-by-id/{id:long}")]
     public async Task<IActionResult> GetByIdAsync(long id)
-        => Ok(await this.mediator.Send(new GetRentalQuery() { Id = id}));
+        => Ok(await this.mediator.Send(new GetRentalQuery() { Id = id }));
 
     [HttpGet("get-all")]
     public async Task<IActionResult> GetAll()

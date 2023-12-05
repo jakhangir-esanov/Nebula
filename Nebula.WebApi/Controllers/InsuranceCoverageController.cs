@@ -1,10 +1,4 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Nebula.Application.Commands.Insurances.CreateInsuranceCoverage;
-using Nebula.Application.Commands.Insurances.DeleteInsuranceCoverage;
-using Nebula.Application.Commands.Insurances.UpdateInsuranceCoverage;
-using Nebula.Application.Queries.Insurances.GetInsuranceCoverage;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace Nebula.WebApi.Controllers;
 

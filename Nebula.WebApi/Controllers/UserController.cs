@@ -1,9 +1,4 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using Nebula.Application.Commands.People.CreateUser;
-using Nebula.Application.Commands.People.DeleteUser;
-using Nebula.Application.Commands.People.UpdateUser;
-using Nebula.Application.Queries.People.GetUser;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace Nebula.WebApi.Controllers;
 

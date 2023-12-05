@@ -1,10 +1,4 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Nebula.Application.Commands.Cars.CreateCarCategory;
-using Nebula.Application.Commands.Cars.DeleteCarCategory;
-using Nebula.Application.Commands.Cars.UpdateCarCategory;
-using Nebula.Application.Queries.Cars.GetCarCategory;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace Nebula.WebApi.Controllers;
 

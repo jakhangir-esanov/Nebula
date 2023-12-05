@@ -1,10 +1,4 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Nebula.Application.Commands.Feedbacks.CreateFeedback;
-using Nebula.Application.Commands.Feedbacks.DeleteFeedback;
-using Nebula.Application.Commands.Feedbacks.UpdateFeedback;
-using Nebula.Application.Queries.Feedbacks.GetFeedback;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace Nebula.WebApi.Controllers;
 
@@ -21,7 +15,7 @@ public class FeedbackController : ControllerBase
 
     [HttpPost("create")]
     public async Task<IActionResult> CrateAsync(CreateFeedbackCommand command)
-        => Ok(await this.mediator.Send(new CreateFeedbackCommand(command.Rating, command.Comment, command.FeedbackDate, 
+        => Ok(await this.mediator.Send(new CreateFeedbackCommand(command.Rating, command.Comment, command.FeedbackDate,
             command.RentalId, command.CustomerId)));
 
     [HttpPut("update")]

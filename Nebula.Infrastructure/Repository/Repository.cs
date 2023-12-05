@@ -36,7 +36,7 @@ public class Repository<T> : IRepository<T> where T : Auditable
     {
         IQueryable<T> query = dbSet.Where(expression);
 
-        if(includes is not null)
+        if (includes is not null)
             foreach(var include in includes)
                 query = query.Include(include);
 
@@ -54,6 +54,18 @@ public class Repository<T> : IRepository<T> where T : Auditable
                 query = query.Include(include);
 
         return query;
+    }
+
+    public async Task<T> GetEntityWithRelatedAsync(long entityId, params Expression<Func<T, object>>[] includes)
+    {
+        var query = dbSet.Where(e => EF.Property<long>(e, "Id") == entityId);
+
+        foreach (var include in includes)
+        {
+            query = query.Include(include);
+        }
+
+        return (await query.FirstOrDefaultAsync())!;
     }
 
     public async Task SaveAsync()

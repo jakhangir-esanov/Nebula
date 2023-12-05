@@ -1,11 +1,4 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using Nebula.Application.Commands.Payments.CreatePayment;
-using Nebula.Application.Commands.Payments.DeletePayment;
-using Nebula.Application.Commands.Payments.UpdatePayment;
-using Nebula.Application.Queries.Payments.GetPayment;
-using Npgsql.Replication;
-using System.Runtime.CompilerServices;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace Nebula.WebApi.Controllers;
 
@@ -22,7 +15,7 @@ public class PaymentController : ControllerBase
 
     [HttpPost("create")]
     public async Task<IActionResult> CreateAsync(CreatePaymentCommand command)
-        => Ok(await this.mediator.Send(new CreatePaymentCommand(command.Amount, command.PaymentType, 
+        => Ok(await this.mediator.Send(new CreatePaymentCommand(command.Amount, command.PaymentType,
             command.CustomerId, command.RentalId, command.PaymentStatus)));
 
     [HttpPut("update")]

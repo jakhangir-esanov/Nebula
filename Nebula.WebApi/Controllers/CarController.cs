@@ -1,10 +1,4 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Nebula.Application.Commands.Cars.CreateCar;
-using Nebula.Application.Commands.Cars.DeleteCar;
-using Nebula.Application.Commands.Cars.UpdateCar;
-using Nebula.Application.Queries.Cars.GetCar;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace Nebula.WebApi.Controllers;
 
@@ -36,6 +30,10 @@ public class CarController : ControllerBase
     [HttpGet("get-by-id/{id:long}")]
     public async Task<IActionResult> GetByIdAsync(long id)
         => Ok(await this.mediator.Send(new GetCarQuery() { Id = id }));
+
+    [HttpGet("get-all-attachments/{id:long}")]
+    public async Task<IActionResult> GetAllAttachments(long id)
+        => Ok(await this.mediator.Send(new GetAllCarAttachmentsQuery() { Id = id }));
 
     [HttpGet("get-all")]
     public async Task<IActionResult> GetAll()

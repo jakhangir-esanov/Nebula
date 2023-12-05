@@ -1,10 +1,4 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Nebula.Application.Commands.Offices.CreateOffice;
-using Nebula.Application.Commands.Offices.DeleteOffice;
-using Nebula.Application.Commands.Offices.UpdateOffice;
-using Nebula.Application.Queries.Offices.GetOffice;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace Nebula.WebApi.Controllers;
 
@@ -21,12 +15,12 @@ public class OfficeController : ControllerBase
 
     [HttpPost("create")]
     public async Task<IActionResult> CreateAsync(CreateOfficeCommand command)
-        => Ok(await this.mediator.Send(new CreateOfficeCommand(command.Name, command.Address, command.City, command.State, 
+        => Ok(await this.mediator.Send(new CreateOfficeCommand(command.Name, command.Address, command.City, command.State,
             command.PostalCode, command.Country, command.Phone, command.Email, command.Website, command.Website)));
 
     [HttpPut("update")]
     public async Task<IActionResult> UpdateAsync(UpdateOfficeCommand command)
-        => Ok(await this.mediator.Send(new UpdateOfficeCommand(command.Id, command.Name, command.Address, command.City, 
+        => Ok(await this.mediator.Send(new UpdateOfficeCommand(command.Id, command.Name, command.Address, command.City,
             command.State, command.PostalCode, command.Country, command.Phone, command.Email, command.Website, command.Website)));
 
     [HttpDelete("delete/{id:long}")]
@@ -36,6 +30,10 @@ public class OfficeController : ControllerBase
     [HttpGet("get-by-id/{id:long}")]
     public async Task<IActionResult> GetByIdAsync(long id)
         => Ok(await this.mediator.Send(new GetOfficeQuery() { Id = id }));
+
+    [HttpGet("get-all-attachments/{id:long}")]
+    public async Task<IActionResult> GetAllAttachments(long id)
+        => Ok(await this.mediator.Send(new GetAllOfficeAttachmentsQuery() { Id = id }));
 
     [HttpGet("get-all")]
     public async Task<IActionResult> GetAll()

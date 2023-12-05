@@ -1,10 +1,4 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Nebula.Application.Commands.Payments.CreatePaymentHistory;
-using Nebula.Application.Commands.Payments.DeletePaymentHistory;
-using Nebula.Application.Commands.Payments.UpdatePaymentHistory;
-using Nebula.Application.Queries.Payments.GetPaymentHistory;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace Nebula.WebApi.Controllers;
 
@@ -21,7 +15,7 @@ public class PaymentHistoryController : ControllerBase
 
     [HttpPost("create")]
     public async Task<IActionResult> CreateAsync(CreatePaymentHistoryCommand command)
-        => Ok(await this.mediator.Send(new CreatePaymentHistoryCommand(command.Date, command.Amount, 
+        => Ok(await this.mediator.Send(new CreatePaymentHistoryCommand(command.Date, command.Amount,
             command.PaymentType, command.PaymentId, command.CustomerId, command.RentalId)));
 
     [HttpPut("update")]
