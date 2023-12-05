@@ -5,9 +5,6 @@ public static class ServiceCollection
 
     public static void AddServices(this IServiceCollection services)
     {
-        services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-        services.AddAutoMapper(typeof(MappingProfile));
-
         services.AddTransient<IRequestHandler<CreateCarAttachmentCommand, CarAttachment>, CreateCarAttachmentCommandHandler>();
         services.AddTransient<IRequestHandler<CreateOfficeAttachmentCommand, OfficeAttachment>, CreateOfficeAttachmentCommandHandler>();
 

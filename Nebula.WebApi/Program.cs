@@ -1,6 +1,7 @@
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Nebula.Infrastructure.Contexts;
+using Nebula.WebApi.Extentions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,9 @@ builder.Services.AddDbContext<AppDbContext>(options
 
 //MediatR
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(Program).Assembly));
+
+//ServiceCollection
+builder.Services.AddServices();
 
 //AutoMapper
 builder.Services.AddAutoMapper(typeof(MappingProfile));
