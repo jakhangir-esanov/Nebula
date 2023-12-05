@@ -1,0 +1,44 @@
+﻿using MediatR;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Nebula.Application.Commands.Feedbacks.CreateFeedback;
+using Nebula.Application.Commands.Feedbacks.DeleteFeedback;
+using Nebula.Application.Commands.Feedbacks.UpdateFeedback;
+using Nebula.Application.Queries.Feedbacks.GetFeedback;
+
+namespace Nebula.WebApi.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+public class FeedbackController : ControllerBase
+{
+    private readonly IMediator mediator;
+
+    public FeedbackController(IMediator mediator)
+    {
+        this.mediator = mediator;
+    }
+
+    [HttpPost("create")]
+    public async Task<IActionResult> CrateAsync(CreateFeedbackCommand command)
+        => Ok(await this.mediator.Send(new CreateFeedbackCommand(command.Rating, command.Comment, command.FeedbackDate, 
+            command.RentalId, command.CustomerId)));
+
+    [HttpPut("update")]
+    public async Task<IActionResult> UpdateAsync(UpdateFeedbackCommand command)
+        => Ok(await this.mediator.Send(new UpdateFeedbackCommand(command.Id, command.Rating, command.Comment, command.FeedbackDate,
+            command.RentalId, command.CustomerId)));
+
+    [HttpDelete("delete/{id:long}")]
+    public async Task<IActionResult> DeleteAsync(long id)
+        => Ok(await this.mediator.Send(new DeleteFeedbackCommand(id)));
+
+    [HttpGet("get-by-id/{id:long}")]
+    public async Task<IActionResult> GetByIdAsync(long id)
+        => Ok(await this.mediator.Send(new GetFeedbackQuery() { Id = id }));
+
+    [HttpGet("get-all")]
+    public async Task<IActionResult> GetAll()
+        => Ok(await this.mediator.Send(new GetAllFeedbacksQuery()));
+
+}

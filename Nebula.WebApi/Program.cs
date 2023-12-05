@@ -1,18 +1,6 @@
-using MediatR;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
-using Nebula.Application.Interfaces;
 using Nebula.Infrastructure.Contexts;
-using Nebula.Infrastructure.Repository;
-using Nebula.Application.Commands.People.CreateCustomer;
-using Nebula.Domain.Entities.People;
-using Nebula.Application.Mappings;
-using Nebula.Application.Queries.People.GetUser;
-using Nebula.Application.DTOs;
-using Nebula.Application.Commands.Offices.CreateOffice;
-using Nebula.Domain.Entities.Offices;
-using Nebula.Application.Commands.People.CreateUser;
-using Nebula.Application.Queries.Attachments.GetCarAttachment;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,12 +17,6 @@ builder.Services.AddDbContext<AppDbContext>(options
 
 //MediatR
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(Program).Assembly));
-
-//MediatR
-builder.Services.AddTransient<IRequestHandler<CreateCustomerCommand, Customer>, CreateCustomerCommandHandler>();
-builder.Services.AddTransient<IRequestHandler<GetAllCarAttachmentQuery, List<CarAttachmentResultDto>>, GetAllCarAttachmentQueryHandler>();
-builder.Services.AddTransient<IRequestHandler<CreateUserCommand, User>, CreateUserCommandHandler>();
-builder.Services.AddTransient<IRequestHandler<CreateOfficeCommand, Office>, CreateOfficeCommandHandler>();
 
 //AutoMapper
 builder.Services.AddAutoMapper(typeof(MappingProfile));

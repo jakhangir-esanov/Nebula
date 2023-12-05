@@ -15,6 +15,12 @@ public record DeleteInsuranceCommand : IRequest<bool>
 public class DeleteInsuranceCommandHandler : IRequestHandler<DeleteInsuranceCommand, bool>
 {
     private readonly IRepository<Insurance> repository;
+
+    public DeleteInsuranceCommandHandler(IRepository<Insurance> repository)
+    {
+        this.repository = repository;
+    }
+
     public async Task<bool> Handle(DeleteInsuranceCommand request, CancellationToken cancellationToken)
     {
         var insurance = await repository.SelectAsync(x => x.Id.Equals(request.Id))

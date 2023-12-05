@@ -2,7 +2,7 @@
 
 namespace Nebula.Application.Commands.Rentals.DeleteRental;
 
-public record DeleteRentalCommand : IRequest<Rental>
+public record DeleteRentalCommand : IRequest<bool>
 {
     public DeleteRentalCommand(long id)
     {
@@ -12,7 +12,7 @@ public record DeleteRentalCommand : IRequest<Rental>
     public long Id { get; set; }
 }
 
-public class DeleteRentalCommandHandler : IRequestHandler<DeleteRentalCommand, Rental>
+public class DeleteRentalCommandHandler : IRequestHandler<DeleteRentalCommand, bool>
 {
     private readonly IRepository<Rental> repository;
 
@@ -21,14 +21,14 @@ public class DeleteRentalCommandHandler : IRequestHandler<DeleteRentalCommand, R
         this.repository = repository;
     }
 
-    public async Task<Rental> Handle(DeleteRentalCommand request, CancellationToken cancellationToken)
+    public async Task<bool> Handle(DeleteRentalCommand request, CancellationToken cancellationToken)
     {
         var rental = await repository.SelectAsync(x => x.Id.Equals(request.Id))
-            ?? throw new NotFoundException("Rental was not found!");
+                    ?? throw new NotFoundException("Rental was not found!");
 
         repository.Drop(rental);
         await repository.SaveAsync();
 
-        return rental;
+        return true;
     }
 }

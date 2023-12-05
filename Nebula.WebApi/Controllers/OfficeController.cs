@@ -2,6 +2,9 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Nebula.Application.Commands.Offices.CreateOffice;
+using Nebula.Application.Commands.Offices.DeleteOffice;
+using Nebula.Application.Commands.Offices.UpdateOffice;
+using Nebula.Application.Queries.Offices.GetOffice;
 
 namespace Nebula.WebApi.Controllers;
 
@@ -17,7 +20,24 @@ public class OfficeController : ControllerBase
     }
 
     [HttpPost("create")]
-    public async Task<IActionResult> CreateAsync(CreateOfficeCommand dto)
-        => Ok(await this.mediator.Send(new CreateOfficeCommand(dto.Name, dto.Address, dto.City, dto.State, dto.PostalCode,
-            dto.Country, dto.Phone, dto.Email, dto.Website, dto.Website)));
+    public async Task<IActionResult> CreateAsync(CreateOfficeCommand command)
+        => Ok(await this.mediator.Send(new CreateOfficeCommand(command.Name, command.Address, command.City, command.State, 
+            command.PostalCode, command.Country, command.Phone, command.Email, command.Website, command.Website)));
+
+    [HttpPut("update")]
+    public async Task<IActionResult> UpdateAsync(UpdateOfficeCommand command)
+        => Ok(await this.mediator.Send(new UpdateOfficeCommand(command.Id, command.Name, command.Address, command.City, 
+            command.State, command.PostalCode, command.Country, command.Phone, command.Email, command.Website, command.Website)));
+
+    [HttpDelete("delete/{id:long}")]
+    public async Task<IActionResult> DeleteAsync(long id)
+        => Ok(await this.mediator.Send(new DeleteOfficeCommand(id)));
+
+    [HttpGet("get-by-id/{id:long}")]
+    public async Task<IActionResult> GetByIdAsync(long id)
+        => Ok(await this.mediator.Send(new GetOfficeQuery() { Id = id }));
+
+    [HttpGet("get-all")]
+    public async Task<IActionResult> GetAll()
+        => Ok(await this.mediator.Send(new GetAllOfficesQuery()));
 }

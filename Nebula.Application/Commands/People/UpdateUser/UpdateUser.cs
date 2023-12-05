@@ -32,11 +32,11 @@ public record UpdateUserCommand : IRequest<User>
     public long OfficeId { get; set; }
 }
 
-public class UpdateCustomerCommandHandler : IRequestHandler<UpdateUserCommand, User>
+public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, User>
 {
     private readonly IRepository<User> repository;
 
-    public UpdateCustomerCommandHandler(IRepository<User> repository)
+    public UpdateUserCommandHandler(IRepository<User> repository)
     {
         this.repository = repository;
     }
