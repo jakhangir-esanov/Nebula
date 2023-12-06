@@ -1,5 +1,6 @@
 ﻿global using MediatR;
 global using Nebula.Application.DTOs;
+global using Microsoft.AspNetCore.Mvc;
 global using Nebula.Domain.Entities.Cars;
 global using Nebula.Application.Mappings;
 global using Nebula.Application.Interfaces;

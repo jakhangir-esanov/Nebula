@@ -3,12 +3,12 @@ using Nebula.Domain.Entities.Cars;
 
 namespace Nebula.Application.Queries.Cars.GetCar;
 
-public record GetCarQuery : IRequest<CarResultDto>
+public record GetCarQuery : IRequest<CarCategoryResultDto>
 {
     public long Id { get; set; }
 }
 
-public class GetCarQueryHandler : IRequestHandler<GetCarQuery, CarResultDto>
+public class GetCarQueryHandler : IRequestHandler<GetCarQuery, CarCategoryResultDto>
 {
     private readonly IRepository<Car> repository;
     private readonly IMapper mapper;
@@ -18,11 +18,11 @@ public class GetCarQueryHandler : IRequestHandler<GetCarQuery, CarResultDto>
         this.mapper = mapper;
     }
 
-    public async Task<CarResultDto> Handle(GetCarQuery request, CancellationToken cancellationToken)
+    public async Task<CarCategoryResultDto> Handle(GetCarQuery request, CancellationToken cancellationToken)
     {
         var car = await this.repository.SelectAsync(x => x.Id.Equals(request.Id))
             ?? throw new NotFoundException("Car was not found!");
 
-        return mapper.Map<CarResultDto>(car);
+        return mapper.Map<CarCategoryResultDto>(car);
     }
 }

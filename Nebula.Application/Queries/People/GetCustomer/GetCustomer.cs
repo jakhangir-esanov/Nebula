@@ -20,7 +20,7 @@ public class GetCustomerQueryHandler : IRequestHandler<GetCustomerQuery, Custome
 
     public async Task<CustomerResultDto> Handle(GetCustomerQuery request, CancellationToken cancellationToken)
     {
-        var customer = await this.repository.SelectAsync(x => x.Id.Equals(request.Id))
+        var customer = await this.repository.SelectAsync(x => x.Id.Equals(request.Id), new[] { "PaymentHistories" })
                     ?? throw new NotFoundException("Customer was not found!");
 
         return mapper.Map<CustomerResultDto>(customer);

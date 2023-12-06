@@ -20,7 +20,7 @@ public class GetCarCategoryQueryHandler : IRequestHandler<GetCarCategoryQuery, C
 
     public async Task<CarCategoryResultDto> Handle(GetCarCategoryQuery request, CancellationToken cancellationToken)
     {
-        var carCategory = await this.repository.SelectAsync(x => x.Id.Equals(request.Id))
+        var carCategory = await this.repository.SelectAsync(x => x.Id.Equals(request.Id), includes: new[] { "Cars" })
             ?? throw new NotFoundException("CarCategory was not found!");
 
         return mapper.Map<CarCategoryResultDto>(carCategory);

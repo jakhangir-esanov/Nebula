@@ -1,5 +1,6 @@
 ﻿using Nebula.Application.DTOs;
 using Nebula.Domain.Entities.Attachments;
+using Nebula.Domain.Entities.Offices;
 
 namespace Nebula.Application.Queries.Offices.GetOffice;
 
@@ -10,19 +11,24 @@ public record GetAllOfficeAttachmentsQuery : IRequest<IEnumerable<AttachmentResu
 
 public class GetAllOfficeAttachmentsQueryHandler : IRequestHandler<GetAllOfficeAttachmentsQuery, IEnumerable<AttachmentResultDto>>
 {
+    private readonly IRepository<Office> officeRepository;
     private readonly IRepository<Attachment> attachmentRepository;
-    private readonly IRepository<OfficeAttachment> officeRepository;
+    private readonly IRepository<OfficeAttachment> officeAttachmentRepository;
     private readonly IMapper mapper;
-    public GetAllOfficeAttachmentsQueryHandler(IRepository<OfficeAttachment> officeRepository, IMapper mapper, IRepository<Attachment> attachmentRepository)
+    public GetAllOfficeAttachmentsQueryHandler(IRepository<OfficeAttachment> officeAttachmentRepository, IMapper mapper, IRepository<Attachment> attachmentRepository, IRepository<Office> officeRepository)
     {
-        this.attachmentRepository = attachmentRepository;
         this.officeRepository = officeRepository;
+        this.attachmentRepository = attachmentRepository;
+        this.officeAttachmentRepository = officeAttachmentRepository;
         this.mapper = mapper;
     }
 
     public async Task<IEnumerable<AttachmentResultDto>> Handle(GetAllOfficeAttachmentsQuery request, CancellationToken cancellationToken)
     {
-        var officeAttachment = officeRepository.SelectAll().Where(x => x.Id.Equals(request.Id)).ToList();
+        var office = await officeRepository.SelectAsync(x => x.Id.Equals(request.Id))
+            ?? throw new NotFoundException("Office was not found!");
+
+        var officeAttachment = officeAttachmentRepository.SelectAll().Where(x => x.Id.Equals(office.Id)).ToList();
         var attachment = attachmentRepository.SelectAll().ToList();
 
         var joinedData = officeAttachment.Join(attachment,

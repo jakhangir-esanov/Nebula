@@ -13,4 +13,6 @@ public class OfficeResultDto
     public string Email { get; set; }
     public string Website { get; set; }
     public string Description { get; set; }
+
+    public ICollection<UserResultDto> Users { get; set; }
 }

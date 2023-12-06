@@ -20,7 +20,7 @@ public class GetInsuranceCoverageQueryHandler : IRequestHandler<GetInsuranceCove
 
     public async Task<InsuranceCoverageResultDto> Handle(GetInsuranceCoverageQuery request, CancellationToken cancellationToken)
     {
-        var insuranceCoverage = await this.repository.SelectAsync(x => x.Id.Equals(request.Id))
+        var insuranceCoverage = await this.repository.SelectAsync(x => x.Id.Equals(request.Id), includes: new[] { "Insurances" } )
             ?? throw new NotFoundException("InsurancCoverage was not found!");
 
         return mapper.Map<InsuranceCoverageResultDto>(insuranceCoverage);

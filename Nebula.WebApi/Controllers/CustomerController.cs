@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-namespace Nebula.WebApi.Controllers;
+﻿namespace Nebula.WebApi.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]

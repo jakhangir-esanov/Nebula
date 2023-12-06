@@ -12,4 +12,7 @@ public class CustomerResultDto
     public string Address { get; set; }
     public string DrivingLicenseNumber { get; set; }
     public DateTime DrivingLicenseExpirationDate { get; set; }
+
+    public ICollection<PaymentHistoryResultDto> PaymentHistories { get; set; }
+
 }
