@@ -1,4 +1,5 @@
-﻿using Nebula.Domain.Entities.People;
+﻿using Nebula.Application.Helpers;
+using Nebula.Domain.Entities.People;
 
 namespace Nebula.Application.Commands.People.CreateCustomer;
 
@@ -45,13 +46,16 @@ public class CreateCustomerCommandHandler : IRequestHandler<CreateCustomerComman
         if (customer is not null)
             throw new AlreadyExistException("Customer is already exist!");
 
+        var hasResult = PasswordHasher.Hash(request.Password);
+
         var newCustomer = new Customer()
         {
             FirstName = request.FirstName,
             LastName = request.LastName,
             Email = request.Email,
             Phone = request.Phone,
-            Password = request.Password,
+            Password = hasResult.Password,
+            Salt = hasResult.Salt,
             DateOfBirth = request.DateOfBirth,
             Address = request.Address,
             DrivingLicenseExpirationDate = request.DrivingLicenseExpirationDate,

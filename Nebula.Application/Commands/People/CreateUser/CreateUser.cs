@@ -1,4 +1,5 @@
-﻿using Nebula.Domain.Entities.People;
+﻿using Nebula.Application.Helpers;
+using Nebula.Domain.Entities.People;
 using Nebula.Domain.Enums;
 
 namespace Nebula.Application.Commands.People.CreateUser;
@@ -45,6 +46,8 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, User>
         if (user is not null)
             throw new AlreadyExistException("Already exist!");
 
+        var hasResult = PasswordHasher.Hash(request.Password);
+
         var newUser = new User()
         {
             FirstName = request.FirstName,
@@ -52,7 +55,8 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, User>
             username = request.username,
             Email = request.Email,
             Phone = request.Phone,
-            Password = request.Password,
+            Password = hasResult.Password,
+            Salt = hasResult.Salt,
             DateOfBirth = request.DateOfBirth,
             UserRole = request.UserRole,
             OfficeId = request.OfficeId
