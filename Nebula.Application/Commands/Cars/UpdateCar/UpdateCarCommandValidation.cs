@@ -1,12 +1,12 @@
-﻿namespace Nebula.Application.Commands.Cars.CreateCar;
+﻿namespace Nebula.Application.Commands.Cars.UpdateCar;
 
-public class CreateCarCommandValidation : AbstractValidator<CreateCarCommand>
+public class UpdateCarCommandValidation : AbstractValidator<UpdateCarCommand>
 {
-    public CreateCarCommandValidation()
+    public UpdateCarCommandValidation()
     {
         RuleFor(x => x.Model).NotEmpty().NotNull().WithMessage("Model field is required!")
-            .MinimumLength(3)
-            .MaximumLength(200);
+           .MinimumLength(3)
+           .MaximumLength(200);
 
         RuleFor(x => x.Year).NotEmpty().NotNull().WithMessage("Year field is required!");
         RuleFor(x => x.Color).NotEmpty().NotNull().WithMessage("This field is required!");
