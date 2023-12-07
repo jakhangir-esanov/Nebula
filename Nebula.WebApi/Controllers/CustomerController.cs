@@ -17,15 +17,27 @@ public class CustomerController : ControllerBase
             command.Phone, command.Password, command.DateOfBirth, command.Address, command.DrivingLicenseNumber,
             command.DrivingLicenseExpirationDate)));
 
+    [HttpPost("upload-image")]
+    public async Task<IActionResult> UploadImageAsync(long customerId, [FromForm] AttachmentCreationDto dto)
+        => Ok(await this.mediator.Send(new UploadCustomerImageCommand(customerId, dto)));
+
     [HttpPut("update")]
     public async Task<IActionResult> UpdateAsync(UpdateCustomerCommand command)
         => Ok(await this.mediator.Send(new UpdateCustomerCommand(command.Id, command.FirstName, command.LastName, command.Email,
             command.Phone, command.Password, command.DateOfBirth, command.Address, command.DrivingLicenseNumber,
             command.DrivingLicenseExpirationDate)));
 
+    [HttpPut("update-image")]
+    public async Task<IActionResult> UpdateImageAsync(long customerId, [FromForm] AttachmentCreationDto dto)
+        => Ok(await this.mediator.Send(new UpdateCustomerImageCommand(customerId, dto)));
+
     [HttpDelete("delete/{id:long}")]
     public async Task<IActionResult> DeleteAsync(long id)
         => Ok(await this.mediator.Send(new DeleteCustomerCommand(id)));
+
+    [HttpDelete("delete")]
+    public async Task<IActionResult> DeleteImageAsync(long id)
+        => Ok(await this.mediator.Send(new DeleteCustomerImageCommand(id)));
 
     [HttpGet("get-by-id/{id:long}")]
     public async Task<IActionResult> GetByIdAsync(long id)

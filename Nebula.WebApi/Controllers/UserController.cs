@@ -18,14 +18,26 @@ public class UserController : ControllerBase
         => Ok(await this.mediator.Send(new CreateUserCommand(command.FirstName, command.LastName, command.username, command.Email,
             command.Phone, command.Password, command.DateOfBirth, command.UserRole, command.OfficeId)));
 
+    [HttpPost("upload-image")]
+    public async Task<IActionResult> UploadImageAsync(long userId, [FromForm] AttachmentCreationDto dto)
+        => Ok(await this.mediator.Send(new UploadUserImageCommand(userId, dto)));
+
     [HttpPut("update")]
     public async Task<IActionResult> UpdateAsync(UpdateUserCommand command)
         => Ok(await this.mediator.Send(new UpdateUserCommand(command.Id, command.FirstName, command.LastName, command.username, command.Email,
             command.Phone, command.Password, command.DateOfBirth, command.UserRole, command.OfficeId)));
 
+    [HttpPut("update-image")]
+    public async Task<IActionResult> UpdateImageAsync(long userId, [FromForm] AttachmentCreationDto dto)
+        => Ok(await this.mediator.Send(new UpdateUserImageCommand(userId, dto)));
+
     [HttpDelete("delete/{id:long}")]
     public async Task<IActionResult> DeleteAsync(long id)
         => Ok(await this.mediator.Send(new DeleteUserCommand(id)));
+
+    [HttpDelete("delete-image")]
+    public async Task<IActionResult> DeleteImageAsync(long userId)
+        => Ok(await this.mediator.Send(new DeleteUserImageCommand(userId)));
 
     [HttpGet("get-by-id/{id:long}")]
     public async Task<IActionResult> GetByIdAsync(long id)

@@ -34,9 +34,9 @@ public class UpdateCarCategoryImageCommandHandler : IRequestHandler<UpdateCarCat
         var attachmentId = carCategory.AttachmentId
             ?? throw new NotFoundException("Attachment was not found!");
 
-        var createdAttachment = await this.mediator.Send(new UpdateAttachmentCommand("CarCategoryFile", attachmentId, request.dto));
-        carCategory.AttachmentId = createdAttachment.Id;
-        carCategory.Attachment = createdAttachment;
+        var updatedAttachment = await this.mediator.Send(new UpdateAttachmentCommand("CarCategoryFile", attachmentId, request.dto));
+        carCategory.AttachmentId = updatedAttachment.Id;
+        carCategory.Attachment = updatedAttachment;
 
         this.repository.Update(carCategory);
         await this.repository.SaveAsync();

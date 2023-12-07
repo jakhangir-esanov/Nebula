@@ -96,13 +96,19 @@ public static class ServiceCollection
         services.AddTransient<IRequestHandler<GetAllPaymentHistoriesQuery, IEnumerable<PaymentHistoryResultDto>>, GetAllPaymentHistoriesQueryHandler>();
 
         services.AddTransient<IRequestHandler<CreateCustomerCommand, Customer>, CreateCustomerCommandHandler>();
+        services.AddTransient<IRequestHandler<UploadCustomerImageCommand, Customer>, UploadCustomerImageCommandHandler>();
         services.AddTransient<IRequestHandler<CreateUserCommand, User>, CreateUserCommandHandler>();
+        services.AddTransient<IRequestHandler<UploadUserImageCommand, User>, UploadUserImageCommandHandler>();
 
         services.AddTransient<IRequestHandler<DeleteCustomerCommand, bool>, DeleteCustomerCommandHandler>();
+        services.AddTransient<IRequestHandler<DeleteCustomerImageCommand, bool>, DeleteCustomerImageCommandHandler>();
         services.AddTransient<IRequestHandler<DeleteUserCommand, bool>, DeleteUserCommandHandler>();
+        services.AddTransient<IRequestHandler<DeleteUserImageCommand, bool>, DeleteUserImageCommandHandler>();
 
         services.AddTransient<IRequestHandler<UpdateCustomerCommand, Customer>, UpdateCustomerCommandHandler>();
+        services.AddTransient<IRequestHandler<UpdateCustomerImageCommand, Customer>, UpdateCustomerImageCommandHandler>();
         services.AddTransient<IRequestHandler<UpdateUserCommand, User>, UpdateUserCommandHandler>();
+        services.AddTransient<IRequestHandler<UpdateUserImageCommand, User>, UpdateUserImageCommandHandler>();
 
         services.AddTransient<IRequestHandler<GetCustomerQuery, CustomerResultDto>, GetCustomerQueryHandler>();
         services.AddTransient<IRequestHandler<GetAllCustomersQuery, IEnumerable<CustomerResultDto>>, GetAllCustomersQueryHandler>();
