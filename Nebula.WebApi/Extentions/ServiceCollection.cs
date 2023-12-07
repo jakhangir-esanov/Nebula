@@ -1,10 +1,22 @@
-﻿namespace Nebula.WebApi.Extentions;
+﻿using Nebula.Application.Commands.Attachments.DeleteAttachment;
+using Nebula.Application.Commands.Attachments.UpdateAttachment;
+using Nebula.Application.Commands.Cars.DeleteCarCategoryImage;
+using Nebula.Application.Commands.Cars.DeleteCarImage;
+using Nebula.Application.Commands.Cars.UpdateCarCategoryImage;
+using Nebula.Application.Commands.Cars.UpdateCarImage;
+using Nebula.Application.Commands.Cars.UploadCarCategoryImage;
+
+namespace Nebula.WebApi.Extentions;
 
 public static class ServiceCollection
 {
 
     public static void AddServices(this IServiceCollection services)
     {
+        services.AddTransient<IRequestHandler<CreateAttachmentCommand, Attachment>, CreateAttachmentCommandHandler>();
+        services.AddTransient<IRequestHandler<DeleteAttachmentCommand, bool>, DeleteAttachmentCommandHandler>();
+        services.AddTransient<IRequestHandler<UpdateAttachmentCommand, Attachment>, UpdateAttachmentCommandHandler>();
+
         services.AddTransient<IRequestHandler<CreateCarAttachmentCommand, CarAttachment>, CreateCarAttachmentCommandHandler>();
         services.AddTransient<IRequestHandler<CreateOfficeAttachmentCommand, OfficeAttachment>, CreateOfficeAttachmentCommandHandler>();
 
@@ -18,15 +30,21 @@ public static class ServiceCollection
         services.AddTransient<IRequestHandler<GetAllOfficeAttachmentsQuery, IEnumerable<AttachmentResultDto>>, GetAllOfficeAttachmentsQueryHandler>();
 
         services.AddTransient<IRequestHandler<CreateCarCommand, Car>, CreateCarCommandHandler>();
+        services.AddTransient<IRequestHandler<UploadCarImageCommand, CarResultDto>, UploadCarImageCommandHandler>();
+        services.AddTransient<IRequestHandler<UploadCarCategoryImageCommand, CarCategory>, UploadCarCategoryImageCommandHandler>();
         services.AddTransient<IRequestHandler<CreateCarCategoryCommand, CarCategory>, CreateCarCategoryCommandHandler>();
 
         services.AddTransient<IRequestHandler<DeleteCarCommand, bool>, DeleteCarCommandHandler>();
+        services.AddTransient<IRequestHandler<DeleteCarImageСommand, bool>, DeleteCarImageCommandHandler>();
+        services.AddTransient<IRequestHandler<DeleteCarCategoryImageCommand, bool>, DeleteCarCategoryImageCommandHandler>();
         services.AddTransient<IRequestHandler<DeleteCarCategoryCommand, bool>, DeleteCarCategoryCommandHandler>();
 
         services.AddTransient<IRequestHandler<UpdateCarCommand, Car>, UpdateCarCommandHandler>();
+        services.AddTransient<IRequestHandler<UpdateCarImageCommand, CarResultDto>, UpdateCarImageCommadHandler>();
+        services.AddTransient<IRequestHandler<UpdateCarCategoryImageCommand, CarCategory>, UpdateCarCategoryImageCommandHandler>();
         services.AddTransient<IRequestHandler<UpdateCarCategoryCommand, CarCategory>, UpdateCarCategoryCommandHandler>();
 
-        services.AddTransient<IRequestHandler<GetCarQuery, CarCategoryResultDto>, GetCarQueryHandler>();
+        services.AddTransient<IRequestHandler<GetCarQuery, CarResultDto>, GetCarQueryHandler>();
         services.AddTransient<IRequestHandler<GetAllCarsQuery, IEnumerable<CarCategoryResultDto>>, GetAllCarsQueryHandler>();
 
         services.AddTransient<IRequestHandler<GetCarCategoryQuery, CarCategoryResultDto>, GetCarCategoryQueryHandler>();

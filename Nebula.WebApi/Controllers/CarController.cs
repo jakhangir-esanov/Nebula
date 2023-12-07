@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Nebula.Application.Commands.Cars.DeleteCarImage;
+using Nebula.Application.Commands.Cars.UpdateCarImage;
+using Nebula.Application.Commands.Cars.UploadCarImage;
 
 namespace Nebula.WebApi.Controllers;
 
@@ -18,14 +21,26 @@ public class CarController : ControllerBase
         => Ok(await this.mediator.Send(new CreateCarCommand(command.Model, command.Year, command.Color,
             command.Number, command.RegistrationNumber, command.IsAvailable, command.CarCategoryId)));
 
+    [HttpPost("upload-image")]
+    public async Task<IActionResult> UploadImageAsync(long id, [FromForm] AttachmentCreationDto dto)
+        => Ok(await this.mediator.Send(new UploadCarImageCommand(id, dto)));
+
     [HttpPut("update")]
     public async Task<IActionResult> UpdateAsync(UpdateCarCommand command)
         => Ok(await this.mediator.Send(new UpdateCarCommand(command.Id, command.Model, command.Year, command.Color,
             command.Number, command.RegistrationNumber, command.IsAvailable, command.CarCategoryId)));
 
+    [HttpPut("update-car-image")]
+    public async Task<IActionResult> UpdateCarImageAsync(long carId, long attachmentId, [FromForm] AttachmentCreationDto dto)
+        => Ok(await this.mediator.Send(new UpdateCarImageCommand(carId, attachmentId, dto)));
+
     [HttpDelete("delete/{id:long}")]
     public async Task<IActionResult> DeleteAsync(long id)
         => Ok(await this.mediator.Send(new DeleteCarCommand(id)));
+
+    [HttpDelete("delete-car-attachment")]
+    public async Task<IActionResult> DeleteCarAttachmentAsync(long carId, long attachmentId)
+        => Ok(await this.mediator.Send(new DeleteCarImageСommand(carId, attachmentId)));
 
     [HttpGet("get-by-id/{id:long}")]
     public async Task<IActionResult> GetByIdAsync(long id)

@@ -100,27 +100,6 @@ public class AppDbContext : DbContext
             .WithMany(x => x.PaymentHistories)
             .OnDelete(DeleteBehavior.NoAction);
 
-        //One-to-one realition for Attachment and User
-        modelBuilder.Entity<Attachment>()
-            .HasOne<User>()
-            .WithOne(x => x.Attachment)
-            .HasForeignKey<Attachment>(x => x.Id)
-            .OnDelete(DeleteBehavior.NoAction);
-
-        //One-to-one realitoin for Attachment and Customer 
-        modelBuilder.Entity<Attachment>()
-            .HasOne<Customer>()
-            .WithOne(x => x.Attachment)
-            .HasForeignKey<Attachment>(x => x.Id)
-            .OnDelete(DeleteBehavior.NoAction);
-
-        //One-to-one realitoin for Attachment and CarCategory
-        modelBuilder.Entity<Attachment>()
-            .HasOne<CarCategory>()
-            .WithOne(x => x.Attachment)
-            .HasForeignKey<Attachment>(x => x.Id)
-            .OnDelete(DeleteBehavior.NoAction);
-
         #endregion
     }
 }

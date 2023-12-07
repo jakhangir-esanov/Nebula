@@ -1,6 +1,6 @@
 ﻿namespace Nebula.Application.Services;
 
-public class AuthService 
+public class AuthService
 {
 
 }

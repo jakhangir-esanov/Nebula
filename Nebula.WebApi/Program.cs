@@ -1,5 +1,7 @@
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
+using Nebula.Application.Helpers;
+using Nebula.Application.Services;
 using Nebula.Infrastructure.Contexts;
 using Nebula.WebApi.Extentions;
 using Serilog;
@@ -16,6 +18,9 @@ builder.Services.AddSwaggerGen();
 //AppDbContext
 builder.Services.AddDbContext<AppDbContext>(options
     => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+//PathRoot
+PathHelper.WebRootPath = Path.GetFullPath("wwwroot");
 
 //MediatR
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(Program).Assembly));
@@ -39,7 +44,6 @@ builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 
 //Repository
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-
 
 var app = builder.Build();
 

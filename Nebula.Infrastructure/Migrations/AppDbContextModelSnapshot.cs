@@ -17,7 +17,7 @@ namespace Nebula.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.0")
+                .HasAnnotation("ProductVersion", "7.0.11")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -25,7 +25,10 @@ namespace Nebula.Infrastructure.Migrations
             modelBuilder.Entity("Nebula.Domain.Entities.Attachments.Attachment", b =>
                 {
                     b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<long?>("CarId")
                         .HasColumnType("bigint");
@@ -191,6 +194,8 @@ namespace Nebula.Infrastructure.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AttachmentId");
 
                     b.ToTable("CarCategories");
                 });
@@ -485,10 +490,16 @@ namespace Nebula.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("Salt")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<DateTime?>("UpdateAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AttachmentId");
 
                     b.ToTable("Customers");
                 });
@@ -533,6 +544,10 @@ namespace Nebula.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("Salt")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<DateTime?>("UpdateAt")
                         .HasColumnType("timestamp with time zone");
 
@@ -544,6 +559,8 @@ namespace Nebula.Infrastructure.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AttachmentId");
 
                     b.HasIndex("OfficeId");
 
@@ -590,24 +607,6 @@ namespace Nebula.Infrastructure.Migrations
                     b.HasOne("Nebula.Domain.Entities.Cars.Car", null)
                         .WithMany("Attachments")
                         .HasForeignKey("CarId");
-
-                    b.HasOne("Nebula.Domain.Entities.Cars.CarCategory", null)
-                        .WithOne("Attachment")
-                        .HasForeignKey("Nebula.Domain.Entities.Attachments.Attachment", "Id")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Nebula.Domain.Entities.People.Customer", null)
-                        .WithOne("Attachment")
-                        .HasForeignKey("Nebula.Domain.Entities.Attachments.Attachment", "Id")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Nebula.Domain.Entities.People.User", null)
-                        .WithOne("Attachment")
-                        .HasForeignKey("Nebula.Domain.Entities.Attachments.Attachment", "Id")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
 
                     b.HasOne("Nebula.Domain.Entities.Offices.Office", null)
                         .WithMany("Attachments")
@@ -661,6 +660,15 @@ namespace Nebula.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("CarCategory");
+                });
+
+            modelBuilder.Entity("Nebula.Domain.Entities.Cars.CarCategory", b =>
+                {
+                    b.HasOne("Nebula.Domain.Entities.Attachments.Attachment", "Attachment")
+                        .WithMany()
+                        .HasForeignKey("AttachmentId");
+
+                    b.Navigation("Attachment");
                 });
 
             modelBuilder.Entity("Nebula.Domain.Entities.Feedbacks.Feedback", b =>
@@ -747,13 +755,28 @@ namespace Nebula.Infrastructure.Migrations
                     b.Navigation("Rental");
                 });
 
+            modelBuilder.Entity("Nebula.Domain.Entities.People.Customer", b =>
+                {
+                    b.HasOne("Nebula.Domain.Entities.Attachments.Attachment", "Attachment")
+                        .WithMany()
+                        .HasForeignKey("AttachmentId");
+
+                    b.Navigation("Attachment");
+                });
+
             modelBuilder.Entity("Nebula.Domain.Entities.People.User", b =>
                 {
+                    b.HasOne("Nebula.Domain.Entities.Attachments.Attachment", "Attachment")
+                        .WithMany()
+                        .HasForeignKey("AttachmentId");
+
                     b.HasOne("Nebula.Domain.Entities.Offices.Office", "Office")
                         .WithMany("Users")
                         .HasForeignKey("OfficeId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
+
+                    b.Navigation("Attachment");
 
                     b.Navigation("Office");
                 });
@@ -793,9 +816,6 @@ namespace Nebula.Infrastructure.Migrations
 
             modelBuilder.Entity("Nebula.Domain.Entities.Cars.CarCategory", b =>
                 {
-                    b.Navigation("Attachment")
-                        .IsRequired();
-
                     b.Navigation("Cars");
                 });
 
@@ -815,16 +835,7 @@ namespace Nebula.Infrastructure.Migrations
 
             modelBuilder.Entity("Nebula.Domain.Entities.People.Customer", b =>
                 {
-                    b.Navigation("Attachment")
-                        .IsRequired();
-
                     b.Navigation("PaymentHistories");
-                });
-
-            modelBuilder.Entity("Nebula.Domain.Entities.People.User", b =>
-                {
-                    b.Navigation("Attachment")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
