@@ -1,9 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Nebula.Application.Commands.Cars.DeleteCarImage;
-using Nebula.Application.Commands.Cars.UpdateCarImage;
-using Nebula.Application.Commands.Cars.UploadCarImage;
-
-namespace Nebula.WebApi.Controllers;
+﻿namespace Nebula.WebApi.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]

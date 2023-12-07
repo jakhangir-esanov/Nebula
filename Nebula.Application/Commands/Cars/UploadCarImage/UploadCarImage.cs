@@ -45,7 +45,6 @@ public class UploadCarImageCommandHandler : IRequestHandler<UploadCarImageComman
         var createAttachment = await this.mediator.Send(new CreateAttachmentCommand("CarFile", request.dto));
 
         await this.mediator.Send(new CreateCarAttachmentCommand(request.Id, createAttachment.Id));
-
         createAttachment.CarAttachments = carAttachment;
         car.CarAttachments = carAttachment;
 

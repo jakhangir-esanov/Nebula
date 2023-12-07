@@ -20,7 +20,7 @@ public class GetOfficeQueryHandler : IRequestHandler<GetOfficeQuery, OfficeResul
 
     public async Task<OfficeResultDto> Handle(GetOfficeQuery request, CancellationToken cancellationToken)
     {
-        var office = await this.repository.SelectAsync(x => x.Id.Equals(request.Id), includes: new[] {"Users"})
+        var office = await this.repository.SelectAsync(x => x.Id.Equals(request.Id), includes: new[] { "OfficeAttachments", "Users" })
             ?? throw new NotFoundException("Office was not found!");
 
         return mapper.Map<OfficeResultDto>(office); 

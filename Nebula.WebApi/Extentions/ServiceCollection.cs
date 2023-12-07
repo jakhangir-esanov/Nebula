@@ -1,12 +1,4 @@
-﻿using Nebula.Application.Commands.Attachments.DeleteAttachment;
-using Nebula.Application.Commands.Attachments.UpdateAttachment;
-using Nebula.Application.Commands.Cars.DeleteCarCategoryImage;
-using Nebula.Application.Commands.Cars.DeleteCarImage;
-using Nebula.Application.Commands.Cars.UpdateCarCategoryImage;
-using Nebula.Application.Commands.Cars.UpdateCarImage;
-using Nebula.Application.Commands.Cars.UploadCarCategoryImage;
-
-namespace Nebula.WebApi.Extentions;
+﻿namespace Nebula.WebApi.Extentions;
 
 public static class ServiceCollection
 {
@@ -76,10 +68,13 @@ public static class ServiceCollection
         services.AddTransient<IRequestHandler<GetAllInsuranceCoveragesQuery, IEnumerable<InsuranceCoverageResultDto>>, GetAllInsuranceCoverageQueryHandler>();
 
         services.AddTransient<IRequestHandler<CreateOfficeCommand, Office>, CreateOfficeCommandHandler>();
+        services.AddTransient<IRequestHandler<UploadOfficeImageCommand, OfficeResultDto>, UploadOfficeImageCommandHandler>();
 
         services.AddTransient<IRequestHandler<DeleteOfficeCommand, bool>, DeleteOfficeCommandHandler>();
+        services.AddTransient<IRequestHandler<DeleteOfficeImageCommand, bool>, DeleteOfficeImageCommandHandler>();
 
         services.AddTransient<IRequestHandler<UpdateOfficeCommand, Office>, UpdateOfficeCommandHandler>();
+        services.AddTransient<IRequestHandler<UpdateOfficeImageCommnd, OfficeResultDto>, UpdateOfficeImageCommandHandler>();
 
         services.AddTransient<IRequestHandler<GetOfficeQuery, OfficeResultDto>, GetOfficeQueryHandler>();
 

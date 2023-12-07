@@ -1,8 +1,4 @@
-﻿using Nebula.Application.Commands.Cars.DeleteCarCategoryImage;
-using Nebula.Application.Commands.Cars.UpdateCarCategoryImage;
-using Nebula.Application.Commands.Cars.UploadCarCategoryImage;
-
-namespace Nebula.WebApi.Controllers;
+﻿namespace Nebula.WebApi.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]

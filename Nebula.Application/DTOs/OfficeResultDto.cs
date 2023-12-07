@@ -1,4 +1,6 @@
-﻿namespace Nebula.Application.DTOs;
+﻿using Nebula.Domain.Entities.Attachments;
+
+namespace Nebula.Application.DTOs;
 
 public class OfficeResultDto
 {
@@ -14,5 +16,6 @@ public class OfficeResultDto
     public string Website { get; set; }
     public string Description { get; set; }
 
+    public ICollection<OfficeAttachmentResultDto> OfficeAttachments { get; set; }
     public ICollection<UserResultDto> Users { get; set; }
 }
