@@ -1,4 +1,9 @@
-﻿namespace Nebula.WebApi.Extentions;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using System.Text;
+
+namespace Nebula.WebApi.Extentions;
 
 public static class ServiceCollection
 {
@@ -37,7 +42,7 @@ public static class ServiceCollection
         services.AddTransient<IRequestHandler<UpdateCarCategoryCommand, CarCategory>, UpdateCarCategoryCommandHandler>();
 
         services.AddTransient<IRequestHandler<GetCarQuery, CarResultDto>, GetCarQueryHandler>();
-        services.AddTransient<IRequestHandler<GetAllCarsQuery, IEnumerable<CarCategoryResultDto>>, GetAllCarsQueryHandler>();
+        services.AddTransient<IRequestHandler<GetAllCarsQuery, IEnumerable<CarResultDto>>, GetAllCarsQueryHandler>();
 
         services.AddTransient<IRequestHandler<GetCarCategoryQuery, CarCategoryResultDto>, GetCarCategoryQueryHandler>();
         services.AddTransient<IRequestHandler<GetAllCarCategoriesQuery, IEnumerable<CarCategoryResultDto>>, GetAllCarCategoriesQueryHandler>();
@@ -125,5 +130,66 @@ public static class ServiceCollection
         services.AddTransient<IRequestHandler<GetRentalQuery, RentalResultDto>, GetRentalQueryHandler>();
 
         services.AddTransient<IRequestHandler<GetAllRentalsQuery, IEnumerable<RentalResultDto>>, GetAllRentalsQueryHandler>();
+    }
+
+    public static void AddJwt(this IServiceCollection services, IConfiguration configuration)
+    {
+        var key = configuration["JWT:Key"];
+
+        if (string.IsNullOrEmpty(key))
+        {
+            throw new InvalidOperationException("JWT key is missing in configuration.");
+        }
+
+        services.AddAuthentication(x =>
+        {
+            x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        }).AddJwtBearer(o =>
+        {
+            var tokenKey = Encoding.UTF8.GetBytes(key);
+
+            o.SaveToken = true;
+            o.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = false,
+                ValidateAudience = false,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = configuration["JWT:Issuer"],
+                ValidAudience = configuration["JWT:Audience"],
+                IssuerSigningKey = new SymmetricSecurityKey(tokenKey)
+            };
+        });
+    }
+
+    public static void ConfigureSwagger(this IServiceCollection services)
+    {
+        services.AddSwaggerGen(setup =>
+        {
+            // Include 'SecurityScheme' to use JWT Authentication
+            var jwtSecurityScheme = new OpenApiSecurityScheme
+            {
+                BearerFormat = "JWT",
+                Name = "JWT Authentication",
+                In = ParameterLocation.Header,
+                Type = SecuritySchemeType.Http,
+                Scheme = JwtBearerDefaults.AuthenticationScheme,
+                Description = "Put **_ONLY_** your JWT Bearer token on textbox below!",
+
+                Reference = new OpenApiReference
+                {
+                    Id = JwtBearerDefaults.AuthenticationScheme,
+                    Type = ReferenceType.SecurityScheme
+                }
+            };
+
+            setup.AddSecurityDefinition(jwtSecurityScheme.Reference.Id, jwtSecurityScheme);
+
+            setup.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    { jwtSecurityScheme, Array.Empty<string>() }
+                });
+        });
     }
 }
