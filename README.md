@@ -1,4 +1,4 @@
-# Nebula: Streamlined Car Rental Management System
+# **Nebula: Streamlined Car Rental Management System**
 
 Nebula is a cutting-edge car rental management system developed in .NET Core 7.0 (C#). This project is designed to provide customers with a seamless experience when renting cars, offering a variety of features to enhance flexibility, efficiency, and customer satisfaction. Built on the principles of Clean Architecture and employing the CQRS MediatR pattern, Nebula ensures a modular and maintainable codebase.
 
