@@ -50,4 +50,4 @@ We welcome contributions from the community to enhance and improve Nebula. Feel 
 
 ## License
 
-This project is licensed under the [MIT License]([https://chat.openai.com/c/LICENSE.md](https://github.com/jakhangir-esanov/Nebula/blob/main/LICENSE)https://github.com/jakhangir-esanov/Nebula/blob/main/LICENSE).
+This project is licensed under the [MIT License](https://github.com/jakhangir-esanov/Nebula/blob/main/LICENSE).
