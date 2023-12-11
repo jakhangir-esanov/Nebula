@@ -44,10 +44,10 @@ Nebula follows the principles of Clean Architecture, promoting separation of con
 - **src/Nebula.WebApi:** Implements the web interface using ASP.NET Core, providing controllers and views.
 - **test/Nebula.Test:** Helps to testing whole project.
 
-  ## Contributing
+## Contributing
 
-  We welcome contributions from the community to enhance and improve Nebula. Feel free to submit issues, feature requests, or pull requests to help us make Nebula even better.
+We welcome contributions from the community to enhance and improve Nebula. Feel free to submit issues, feature requests, or pull requests to help us make Nebula even better.
 
-  ## License
+## License
 
-  This project is licensed under the [https://chat.openai.com/c/LICENSE.md](MIT License).
+This project is licensed under the [MIT License](https://chat.openai.com/c/LICENSE.md).
