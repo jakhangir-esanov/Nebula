@@ -49,33 +49,4 @@ public class AuthService : IAuthService
         string result = tokenHandler.WriteToken(token);
         return result;
     }
-
-    public async Task<string> GenerateTokenForCustomerAsync(string email, string password)
-    {
-        var customer = await customerRepository.SelectAsync(x => x.Email.Equals(email))
-            ?? throw new NotFoundException("Guest not found!");
-
-        bool varifiedPassword = PasswordHasher.Verify(password, customer.Password, customer.Salt);
-        if (!varifiedPassword)
-            throw new CustomException(400, "Password or Email is incorrect!");
-
-        var tokenHandler = new JwtSecurityTokenHandler();
-        var tokenKey = Encoding.UTF8.GetBytes(configuration["JWT:Key"]);
-
-        var tokenDescriptor = new SecurityTokenDescriptor
-        {
-            Subject = new ClaimsIdentity(new Claim[]
-            {
-                new Claim("Email", customer.Email),
-                new Claim("Id", customer.Id.ToString()),
-            }),
-            Expires = DateTime.UtcNow.AddMinutes(10),
-            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey), SecurityAlgorithms.HmacSha256Signature)
-        };
-
-        var token = tokenHandler.CreateToken(tokenDescriptor);
-
-        string result = tokenHandler.WriteToken(token);
-        return result;
-    }
 }

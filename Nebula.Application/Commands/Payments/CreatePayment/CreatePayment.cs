@@ -1,12 +1,12 @@
-﻿using Nebula.Domain.Entities.Payments;
-using Nebula.Domain.Entities.People;
+﻿using Nebula.Application.Commands.Payments.CreatePaymentHistory;
+using Nebula.Domain.Entities.Payments;
 using Nebula.Domain.Enums;
 
 namespace Nebula.Application.Commands.Payments.CreatePayment;
 
 public record CreatePaymentCommand : IRequest<Payment>
 {
-    public CreatePaymentCommand(double amount, PaymentType paymentType, long customerId, long rentalId, 
+    public CreatePaymentCommand(double amount, PaymentType paymentType, long customerId, long rentalId,
         PaymentStatus paymentStatus)
     {
         Amount = amount;
@@ -26,10 +26,12 @@ public record CreatePaymentCommand : IRequest<Payment>
 public class CreatePaymentCommandHandler : IRequestHandler<CreatePaymentCommand, Payment>
 {
     private readonly IRepository<Payment> repository;
+    private readonly IMediator mediator;
 
-    public CreatePaymentCommandHandler(IRepository<Payment> repository)
+    public CreatePaymentCommandHandler(IRepository<Payment> repository, IMediator mediator)
     {
         this.repository = repository;
+        this.mediator = mediator;
     }
 
     public async Task<Payment> Handle(CreatePaymentCommand request, CancellationToken cancellationToken)
@@ -49,6 +51,23 @@ public class CreatePaymentCommandHandler : IRequestHandler<CreatePaymentCommand,
 
         await repository.InsertAsync(newPayment);
         await repository.SaveAsync();
+
+        if (newPayment.PaymentStatus == PaymentStatus.success)
+        {
+            var paymentHistory = new PaymentHistory()
+            {
+                PaymentId = newPayment.Id,
+                Amount = newPayment.Amount,
+                PaymentType = newPayment.PaymentType,
+                CustomerId = newPayment.CustomerId,
+                RentalId = newPayment.RentalId,
+                Date = DateTime.UtcNow
+            };
+
+            await this.mediator.Send(new CreatePaymentHistoryCommand(paymentHistory.Date, paymentHistory.Amount,
+                paymentHistory.PaymentType, paymentHistory.PaymentId, paymentHistory.CustomerId, paymentHistory.RentalId));
+        }
+
 
         return newPayment;
     }
