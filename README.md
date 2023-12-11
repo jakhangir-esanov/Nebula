@@ -14,7 +14,7 @@ Nebula is a cutting-edge car rental management system developed in .NET Core 7.0
 To get started with Nebula, follow steps:
 
 ### Prerequisites
-- Install [https://dotnet.microsoft.com/download/dotnet/7.0](.NET Core 7.0) on your machine
+- Install [.NET Core 7.0](https://dotnet.microsoft.com/download/dotnet/7.0) on your machine
 
 ### Installation
 1. Clone the Nebula repository to your local machine.
@@ -50,4 +50,4 @@ We welcome contributions from the community to enhance and improve Nebula. Feel 
 
 ## License
 
-This project is licensed under the [MIT License](https://chat.openai.com/c/LICENSE.md).
+This project is licensed under the [MIT License]([https://chat.openai.com/c/LICENSE.md](https://github.com/jakhangir-esanov/Nebula/blob/main/LICENSE)https://github.com/jakhangir-esanov/Nebula/blob/main/LICENSE).
