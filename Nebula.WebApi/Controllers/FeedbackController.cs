@@ -17,7 +17,7 @@ public class FeedbackController : ControllerBase
     [Authorize(Roles = "superAdmin")]
     [Authorize(Roles = "admin")]
     [HttpPost("create")]
-    public async Task<IActionResult> CrateAsync(CreateFeedbackCommand command)
+    public async Task<IActionResult> CreateAsync(CreateFeedbackCommand command)
         => Ok(await this.mediator.Send(new CreateFeedbackCommand(command.Rating, command.Comment, command.FeedbackDate,
             command.RentalId, command.CustomerId)));
 
