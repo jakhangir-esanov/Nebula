@@ -14,8 +14,7 @@ public class UserController : ControllerBase
         this.mediator = mediator;
     }
 
-    [Authorize(Roles = "superAdmin")]
-    [Authorize(Roles = "admin")]
+    [AllowAnonymous]
 
     [HttpPost("create")]
     public async Task<IActionResult> CreateAsync(CreateUserCommand command)
@@ -58,15 +57,13 @@ public class UserController : ControllerBase
     public async Task<IActionResult> DeleteImageAsync(long userId)
         => Ok(await this.mediator.Send(new DeleteUserImageCommand(userId)));
 
-    [Authorize(Roles = "superAdmin")]
-    [Authorize(Roles = "admin")]
+    [AllowAnonymous]
 
     [HttpGet("get-by-id/{id:long}")]
     public async Task<IActionResult> GetByIdAsync(long id)
         => Ok(await this.mediator.Send(new GetUserQuery() { Id = id }));
 
-    [Authorize(Roles = "superAdmin")]
-    [Authorize(Roles = "admin")]
+    [AllowAnonymous]
 
     [HttpGet("get-all")]
     public async Task<IActionResult> GetAll()
