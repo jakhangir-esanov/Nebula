@@ -62,3 +62,21 @@ jobs:
           run: docker login -u $USERNAME -p $PASSWORD 
         - name: Push Docker image
           run: docker image push $USERNAME/mynebula
+
+  deploy:
+    name: Deploy
+    needs: dockerize
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: SSH into AWS Ubuntu Serve
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH }}
+          port: 22
+          script: |
+            cd ~/app
+            docker pull ejakhangir/mynebula
+            docker-compose up -d 
