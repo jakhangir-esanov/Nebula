@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Nebula.UnitTest.Queries.Insurance
+namespace Nebula.UnitTest.Controller.Car
 {
-    internal class InsuranceQueryTest
+    internal class CarCommandTest
     {
     }
 }
