@@ -36,14 +36,6 @@ dotnet run
 
 Nebula follows the principles of Clean Architecture, promoting separation of concerns and maintainability. The implementation leverages the CQRS (Command Query Responsibility Segregation) pattern using MediatR, enabling a clear separation between command and query responsibilities.
 
-## Project Structure
-
-- **src/Nebula.Application:** Contains the application's business logic and command/query handlers.
-- **src/Nebula.Domain:** Defines the core domain entities and business rules.
-- **src/Nebula.Infrastructure:** Houses infrastructure concerns, such as database access and external services.
-- **src/Nebula.WebApi:** Implements the web interface using ASP.NET Core, providing controllers and views.
-- **test/Nebula.Test:** Helps to testing whole project.
-
 ## Contributing
 
 We welcome contributions from the community to enhance and improve Nebula. Feel free to submit issues, feature requests, or pull requests to help us make Nebula even better.
