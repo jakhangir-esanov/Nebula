@@ -14,20 +14,14 @@ public class InsuranceController : ControllerBase
         this.mediator = mediator;
     }
 
-    [Authorize(Roles = "superAdmin")]
-    [Authorize(Roles = "admin")]
     [HttpPost("create")]
     public async Task<IActionResult> CreateAsync(CreateInsuranceCommand command)
         => Ok(await this.mediator.Send(new CreateInsuranceCommand(command.Name, command.InsuranceCoverageId, command.CustomerId)));
 
-    [Authorize(Roles = "superAdmin")]
-    [Authorize(Roles = "admin")]
     [HttpPut("update")]
     public async Task<IActionResult> UpdateAsync(UpdateInsuranceCommand command)
         => Ok(await this.mediator.Send(new UpdateInsuranceCommand(command.Id, command.Name, command.InsuranceCoverageId, command.CustomerId)));
 
-    [Authorize(Roles = "superAdmin")]
-    [Authorize(Roles = "admin")]
     [HttpDelete("delete/{id:long}")]
     public async Task<IActionResult> DeleteAsync(long id)
         => Ok(await this.mediator.Send(new DeleteInsuranceCommand(id)));

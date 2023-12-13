@@ -14,22 +14,16 @@ public class PaymentHistoryController : ControllerBase
         this.mediator = mediator;
     }
 
-    [Authorize(Roles = "superAdmin")]
-    [Authorize(Roles = "admin")]
     [HttpPost("create")]
     public async Task<IActionResult> CreateAsync(CreatePaymentHistoryCommand command)
         => Ok(await this.mediator.Send(new CreatePaymentHistoryCommand(command.Date, command.Amount,
             command.PaymentType, command.PaymentId, command.CustomerId, command.RentalId)));
 
-    [Authorize(Roles = "superAdmin")]
-    [Authorize(Roles = "admin")]
     [HttpPut("update")]
     public async Task<IActionResult> UpdateAsync(UpdatePaymentHistoryCommand command)
         => Ok(await this.mediator.Send(new UpdatePaymentHistoryCommand(command.Id, command.Date, command.Amount,
             command.PaymentType, command.PaymentId, command.CustomerId, command.RentalId)));
 
-    [Authorize(Roles = "superAdmin")]
-    [Authorize(Roles = "admin")]
     [HttpDelete("delete/{id:long}")]
     public async Task<IActionResult> DeleteAsync(long id)
         => Ok(await this.mediator.Send(new DeletePaymentHistoryCommand(id)));
