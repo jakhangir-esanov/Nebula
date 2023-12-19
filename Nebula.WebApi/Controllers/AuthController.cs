@@ -12,6 +12,6 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("user/login")]
-    public async Task<IActionResult> GenerateTokenForUserAsync(string email, string password)
-        => Ok(await this.authService.GenerateTokenForUserAsync(email, password));
+    public async Task<IActionResult> GenerateTokenAsync(string email, string password)
+        => Ok(await this.authService.GenerateTokenAsync(email, password));
 }

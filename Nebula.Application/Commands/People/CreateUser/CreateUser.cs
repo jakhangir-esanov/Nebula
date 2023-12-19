@@ -34,10 +34,11 @@ public record CreateUserCommand : IRequest<User>
 public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, User>
 {
     private readonly IRepository<User> repository;
-
-    public CreateUserCommandHandler(IRepository<User> repository)
+    private readonly IRepository<Customer> customerRepository;
+    public CreateUserCommandHandler(IRepository<User> repository, IRepository<Customer> customerRepository)
     {
         this.repository = repository;
+        this.customerRepository = customerRepository;
     }
 
     public async Task<User> Handle(CreateUserCommand request, CancellationToken cancellationToken)
@@ -45,6 +46,9 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, User>
         var user = await repository.SelectAsync(x => x.Email.Equals(request.Email));
         if (user is not null)
             throw new AlreadyExistException("Already exist!");
+        var customer = await customerRepository.SelectAsync(x => x.Email.Equals(request.Email));
+        if (customer is not null)
+            throw new AlreadyExistException("Person is already exist, this is Customer!");
 
         var hasResult = PasswordHasher.Hash(request.Password);
 

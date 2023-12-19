@@ -20,12 +20,20 @@ public class AuthService : IAuthService
         this.customerRepository = customerRepository;
     }
 
-    public async Task<string> GenerateTokenForUserAsync(string email, string password)
+    public async Task<string> GenerateTokenAsync(string email, string password)
     {
-        var user = await userRepository.SelectAsync(x => x.Email.Equals(email))
-            ?? throw new NotFoundException("User not found!");
+        Customer customer;
+        var user = await userRepository.SelectAsync(x => x.Email.Equals(email));
+        if (user is null)
+            customer = await customerRepository.SelectAsync(x => x.Email.Equals(email))
+                ?? throw new NotFoundException("This user is not found!");
 
-        bool varifiedPassword = PasswordHasher.Verify(password, user.Password, user.Salt);
+        else
+        {
+            return GenerateTokenForUser(user.Id.ToString(), user.UserRole.ToString(), user.Email, password, user.Password, user.Salt);
+        }
+
+        bool varifiedPassword = PasswordHasher.Verify(password, customer.Password, customer.Salt);
         if (!varifiedPassword)
             throw new CustomException(400, "Password or Email is incorrect!");
 
@@ -36,9 +44,37 @@ public class AuthService : IAuthService
         {
             Subject = new ClaimsIdentity(new Claim[]
             {
-                new Claim("Email", user.Email),
-                new Claim("Id", user.Id.ToString()),
-                new Claim(ClaimTypes.Role, user.UserRole.ToString())
+                new Claim("Email", customer.Email),
+                new Claim("Id", customer.Id.ToString()),
+                new Claim("DrivingLicenseNumber", customer.DrivingLicenseNumber)
+            }),
+            Expires = DateTime.UtcNow.AddMinutes(10),
+            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey), SecurityAlgorithms.HmacSha256Signature)
+        };
+
+        var token = tokenHandler.CreateToken(tokenDescriptor);
+
+        string result = tokenHandler.WriteToken(token);
+        return result;
+
+    }
+
+    private string GenerateTokenForUser(string Id, string userRole, string email,string password, string innerPassword, string salt)
+    {
+        bool varifiedPassword = PasswordHasher.Verify(password, innerPassword, salt);
+        if (!varifiedPassword)
+            throw new CustomException(400, "Password or Email is incorrect for user!");
+
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var tokenKey = Encoding.UTF8.GetBytes(configuration["JWT:Key"]);
+
+        var tokenDescriptor = new SecurityTokenDescriptor
+        {
+            Subject = new ClaimsIdentity(new Claim[]
+            {
+                new Claim("Email", email),
+                new Claim("Id", Id),
+                new Claim(ClaimTypes.Role, userRole)
             }),
             Expires = DateTime.UtcNow.AddMinutes(10),
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey), SecurityAlgorithms.HmacSha256Signature)
