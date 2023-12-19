@@ -63,7 +63,7 @@ public class AuthService : IAuthService
     {
         bool varifiedPassword = PasswordHasher.Verify(password, innerPassword, salt);
         if (!varifiedPassword)
-            throw new CustomException(400, "Password or Email is incorrect for user!");
+            throw new CustomException(400, "Password or Email is incorrect!");
 
         var tokenHandler = new JwtSecurityTokenHandler();
         var tokenKey = Encoding.UTF8.GetBytes(configuration["JWT:Key"]);
