@@ -46,7 +46,7 @@ public class AuthService : IAuthService
             {
                 new Claim("Email", customer.Email),
                 new Claim("Id", customer.Id.ToString()),
-                new Claim("DrivingLicenseNumber", customer.DrivingLicenseNumber)
+                new Claim("Status", "Customer")
             }),
             Expires = DateTime.UtcNow.AddMinutes(10),
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey), SecurityAlgorithms.HmacSha256Signature)
@@ -74,7 +74,8 @@ public class AuthService : IAuthService
             {
                 new Claim("Email", email),
                 new Claim("Id", Id),
-                new Claim(ClaimTypes.Role, userRole)
+                new Claim(ClaimTypes.Role, userRole),
+                new Claim("Status", "User")
             }),
             Expires = DateTime.UtcNow.AddMinutes(10),
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey), SecurityAlgorithms.HmacSha256Signature)
