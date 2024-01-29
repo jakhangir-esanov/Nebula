@@ -1,4 +1,7 @@
-﻿namespace Nebula.WebApi.Controllers;
+﻿using Nebula.WebApi.Services;
+using System.Text.Json;
+
+namespace Nebula.WebApi.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
@@ -13,5 +16,11 @@ public class AuthController : ControllerBase
 
     [HttpPost("user/login")]
     public async Task<IActionResult> GenerateTokenAsync(string email, string password)
-        => Ok(await this.authService.GenerateTokenAsync(email, password));
+    {
+        var token = await authService.GenerateTokenAsync(email, password);
+
+        var result = JsonSerializer.Serialize(new TokenModel { AccessToken = token });
+       
+        return Ok(result);
+    }
 }
