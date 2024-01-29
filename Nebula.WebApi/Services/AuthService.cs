@@ -86,4 +86,9 @@ public class AuthService : IAuthService
         string result = tokenHandler.WriteToken(token);
         return result;
     }
+};
+
+public class TokenModel
+{
+    public string AccessToken { get; set; } = default!;
 }
