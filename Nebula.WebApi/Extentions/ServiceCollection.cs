@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Nebula.Application.Queries.Attachments;
 using System.Text;
 
 namespace Nebula.WebApi.Extentions;
@@ -10,6 +11,9 @@ public static class ServiceCollection
 
     public static void AddServices(this IServiceCollection services)
     {
+        services.AddTransient<IRequestHandler<GetAttachmentQuery, AttachmentResultDto>, GetAttachmentQueryHandler>();
+        services.AddTransient<IRequestHandler<GetAllAttachmentsQuery, IEnumerable<AttachmentResultDto>>, GetAllAttachmentsQueryHandler>();
+
         services.AddTransient<IRequestHandler<CreateAttachmentCommand, Attachment>, CreateAttachmentCommandHandler>();
         services.AddTransient<IRequestHandler<DeleteAttachmentCommand, bool>, DeleteAttachmentCommandHandler>();
         services.AddTransient<IRequestHandler<UpdateAttachmentCommand, Attachment>, UpdateAttachmentCommandHandler>();
