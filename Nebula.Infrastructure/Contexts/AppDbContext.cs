@@ -15,7 +15,6 @@ public class AppDbContext : DbContext
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
     public DbSet<Attachment> Attachments { get; set; }
-    public DbSet<CarAttachment> CarAttachments { get; set; }
     public DbSet<OfficeAttachment> OfficeAttachments { get; set; }
     public DbSet<Car> Cars { get; set; }
     public DbSet<CarCategory> CarCategories { get; set; }
@@ -46,19 +45,15 @@ public class AppDbContext : DbContext
             .WithMany(x => x.OfficeAttachments)
             .HasForeignKey(x => x.AttachmentId);
 
-        //Many-to-many realition for Car and Attachment
-        modelBuilder.Entity<CarAttachment>()
-            .HasKey(x => x.Id);
+        //One-to-many realition for Car and Attachment
+        modelBuilder.Entity<Car>()
+            .HasMany(x => x.Attachments)
+            .WithOne(x => x.Car);
 
-        modelBuilder.Entity<CarAttachment>()
+        modelBuilder.Entity<Attachment>()
             .HasOne(x => x.Car)
-            .WithMany(x => x.CarAttachments)
-            .HasForeignKey(x => x.CarId);
-
-        modelBuilder.Entity<CarAttachment>()
-            .HasOne(x => x.Attachment)
-            .WithMany(x => x.CarAttachments)
-            .HasForeignKey(x => x.AttamentId);
+            .WithMany(x => x.Attachments)
+            .OnDelete(DeleteBehavior.NoAction);
 
         //One-to-many realition for CarCategory and Car
         modelBuilder.Entity<CarCategory>()

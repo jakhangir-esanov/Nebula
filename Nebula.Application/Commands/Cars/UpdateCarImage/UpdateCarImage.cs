@@ -23,14 +23,12 @@ public record UpdateCarImageCommand : IRequest<CarResultDto>
 public class UpdateCarImageCommadHandler : IRequestHandler<UpdateCarImageCommand, CarResultDto>
 {
     private readonly IRepository<Car> carRepository;
-    private readonly IRepository<CarAttachment> carAttachmentRepository;
     private readonly IMediator mediator;
     private readonly IMapper mapper;
-    public UpdateCarImageCommadHandler(IRepository<Car> carRepository, IRepository<CarAttachment> carAttachmentRepository,
+    public UpdateCarImageCommadHandler(IRepository<Car> carRepository,
         IMediator mediator, IMapper mapper)
     {
         this.carRepository = carRepository;
-        this.carAttachmentRepository = carAttachmentRepository;
         this.mediator = mediator;
         this.mapper = mapper;
     }
@@ -40,11 +38,7 @@ public class UpdateCarImageCommadHandler : IRequestHandler<UpdateCarImageCommand
         var car = await this.carRepository.SelectAsync(x => x.Id.Equals(request.carId))
             ?? throw new NotFoundException("You could not update image, because car was not found!");
 
-        var carAttachment = await this.carAttachmentRepository.SelectAsync(x => x.CarId.Equals(request.carId)
-            && x.AttamentId.Equals(request.attachmentId))
-            ?? throw new NotFoundException("You could not update image, because image was not found!");
-
-        await this.mediator.Send(new UpdateAttachmentCommand("CarFile", request.attachmentId, request.dto));
+        await this.mediator.Send(new UpdateCarAttachmentCommand("CarFile", request.attachmentId, request.carId, request.dto));
 
         return mapper.Map<CarResultDto>(car);
     }

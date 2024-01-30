@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Nebula.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231207053020_InitialMigration")]
+    [Migration("20240130100105_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -34,6 +34,7 @@ namespace Nebula.Infrastructure.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<long?>("CarId")
+                        .IsRequired()
                         .HasColumnType("bigint");
 
                     b.Property<DateTime>("CreateAt")
@@ -60,35 +61,6 @@ namespace Nebula.Infrastructure.Migrations
                     b.HasIndex("OfficeId");
 
                     b.ToTable("Attachments");
-                });
-
-            modelBuilder.Entity("Nebula.Domain.Entities.Attachments.CarAttachment", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<long>("AttamentId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("CarId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime>("CreateAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime?>("UpdateAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AttamentId");
-
-                    b.HasIndex("CarId");
-
-                    b.ToTable("CarAttachments");
                 });
 
             modelBuilder.Entity("Nebula.Domain.Entities.Attachments.OfficeAttachment", b =>
@@ -607,30 +579,15 @@ namespace Nebula.Infrastructure.Migrations
 
             modelBuilder.Entity("Nebula.Domain.Entities.Attachments.Attachment", b =>
                 {
-                    b.HasOne("Nebula.Domain.Entities.Cars.Car", null)
+                    b.HasOne("Nebula.Domain.Entities.Cars.Car", "Car")
                         .WithMany("Attachments")
-                        .HasForeignKey("CarId");
+                        .HasForeignKey("CarId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.HasOne("Nebula.Domain.Entities.Offices.Office", null)
                         .WithMany("Attachments")
                         .HasForeignKey("OfficeId");
-                });
-
-            modelBuilder.Entity("Nebula.Domain.Entities.Attachments.CarAttachment", b =>
-                {
-                    b.HasOne("Nebula.Domain.Entities.Attachments.Attachment", "Attachment")
-                        .WithMany("CarAttachments")
-                        .HasForeignKey("AttamentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Nebula.Domain.Entities.Cars.Car", "Car")
-                        .WithMany("CarAttachments")
-                        .HasForeignKey("CarId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Attachment");
 
                     b.Navigation("Car");
                 });
@@ -805,16 +762,12 @@ namespace Nebula.Infrastructure.Migrations
 
             modelBuilder.Entity("Nebula.Domain.Entities.Attachments.Attachment", b =>
                 {
-                    b.Navigation("CarAttachments");
-
                     b.Navigation("OfficeAttachments");
                 });
 
             modelBuilder.Entity("Nebula.Domain.Entities.Cars.Car", b =>
                 {
                     b.Navigation("Attachments");
-
-                    b.Navigation("CarAttachments");
                 });
 
             modelBuilder.Entity("Nebula.Domain.Entities.Cars.CarCategory", b =>

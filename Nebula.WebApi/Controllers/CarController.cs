@@ -44,11 +44,6 @@ public class CarController : ControllerBase
         => Ok(await this.mediator.Send(new GetCarQuery() { Id = id }));
 
     [AllowAnonymous]
-    [HttpGet("get-all-attachments/{id:long}")]
-    public async Task<IActionResult> GetAllAttachments(long id)
-        => Ok(await this.mediator.Send(new GetAllCarAttachmentsQuery() { Id = id }));
-
-    [AllowAnonymous]
     [HttpGet("get-all")]
     public async Task<IActionResult> GetAll()
         => Ok(await this.mediator.Send(new GetAllCarsQuery()));

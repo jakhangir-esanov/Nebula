@@ -19,13 +19,11 @@ public record DeleteCarImageСommand : IRequest<bool>
 public class DeleteCarImageCommandHandler : IRequestHandler<DeleteCarImageСommand, bool>
 {
     private readonly IRepository<Car> carRepository;
-    private readonly IRepository<CarAttachment> carAttachmentRepository;
     private readonly IMediator mediator;
-    public DeleteCarImageCommandHandler(IRepository<Car> carRepository, IRepository<CarAttachment> carAttachmentRepository,
+    public DeleteCarImageCommandHandler(IRepository<Car> carRepository,
         IMediator mediator)
     {
         this.carRepository = carRepository;
-        this.carAttachmentRepository = carAttachmentRepository;
         this.mediator = mediator;
     }
 
@@ -34,11 +32,6 @@ public class DeleteCarImageCommandHandler : IRequestHandler<DeleteCarImageСomma
         var car = await this.carRepository.SelectAsync(x => x.Id.Equals(request.carId))
             ?? throw new NotFoundException("Car was not found!");
 
-        var carAttachment = await this.carAttachmentRepository.SelectAsync(x => x.CarId.Equals(request.carId)
-            && x.AttamentId.Equals(request.attachmentId))
-            ?? throw new NotFoundException("Attachment was not found!");
-
-        carAttachmentRepository.Drop(carAttachment);
         await this.mediator.Send(new DeleteAttachmentCommand(request.attachmentId));
 
         return true;

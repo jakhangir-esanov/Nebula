@@ -13,21 +13,19 @@ public static class ServiceCollection
     {
         services.AddTransient<IRequestHandler<GetAttachmentQuery, AttachmentResultDto>, GetAttachmentQueryHandler>();
         services.AddTransient<IRequestHandler<GetAllAttachmentsQuery, IEnumerable<AttachmentResultDto>>, GetAllAttachmentsQueryHandler>();
+        services.AddTransient<IRequestHandler<CreateCarAttachmentCommand, Attachment>, CreateCarAttachmentCommandHandler>();
+        services.AddTransient<IRequestHandler<UpdateCarAttachmentCommand, Attachment>, UpdateCarAttachmentCommandHandler>();
 
         services.AddTransient<IRequestHandler<CreateAttachmentCommand, Attachment>, CreateAttachmentCommandHandler>();
         services.AddTransient<IRequestHandler<DeleteAttachmentCommand, bool>, DeleteAttachmentCommandHandler>();
         services.AddTransient<IRequestHandler<UpdateAttachmentCommand, Attachment>, UpdateAttachmentCommandHandler>();
 
-        services.AddTransient<IRequestHandler<CreateCarAttachmentCommand, CarAttachment>, CreateCarAttachmentCommandHandler>();
         services.AddTransient<IRequestHandler<CreateOfficeAttachmentCommand, OfficeAttachment>, CreateOfficeAttachmentCommandHandler>();
 
-        services.AddTransient<IRequestHandler<DeleteCarAttachmentCommand, bool>, DeleteCarAttachmentCommandHandler>();
         services.AddTransient<IRequestHandler<DeleteOfficeAttachmentCommand, bool>, DeleteOfficeAttachmentCommandHandler>();
 
-        services.AddTransient<IRequestHandler<UpdateCarAttachmentCommand, CarAttachment>, UpdateCarAttachmentCommandHandler>();
         services.AddTransient<IRequestHandler<UpdateOfficeAttachmentCommand, OfficeAttachment>, UpdateOfficeAttachmentCommandHandler>();
 
-        services.AddTransient<IRequestHandler<GetAllCarAttachmentsQuery, IEnumerable<AttachmentResultDto>>, GetAllCarAttachmentsQueryHandler>();
         services.AddTransient<IRequestHandler<GetAllOfficeAttachmentsQuery, IEnumerable<AttachmentResultDto>>, GetAllOfficeAttachmentsQueryHandler>();
 
         services.AddTransient<IRequestHandler<CreateCarCommand, Car>, CreateCarCommandHandler>();

@@ -15,6 +15,5 @@ public sealed class Car : Auditable
     public long CarCategoryId { get; set; }
     public CarCategory CarCategory { get; set; }
 
-    public ICollection<CarAttachment> CarAttachments { get; set; }
     public ICollection<Attachment> Attachments { get; set; }
 }

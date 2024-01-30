@@ -1,6 +1,4 @@
-﻿using System.Reflection.Metadata.Ecma335;
-
-namespace Nebula.Application.DTOs;
+﻿namespace Nebula.Application.DTOs;
 
 public class CarResultDto
 {
@@ -12,5 +10,5 @@ public class CarResultDto
     public long RegistrationNumber { get; set; }
     public bool IsAvailable { get; set; } = true;
     public long CarCategoryId { get; set; }
-    public ICollection<CarAttachmentResultDto> CarAttachments { get; set; }
+    public ICollection<AttachmentResultDto> Attachments { get; set; }
 }

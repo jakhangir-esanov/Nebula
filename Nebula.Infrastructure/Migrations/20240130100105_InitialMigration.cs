@@ -61,7 +61,7 @@ namespace Nebula.Infrastructure.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     FileName = table.Column<string>(type: "text", nullable: false),
                     FilePath = table.Column<string>(type: "text", nullable: false),
-                    CarId = table.Column<long>(type: "bigint", nullable: true),
+                    CarId = table.Column<long>(type: "bigint", nullable: false),
                     OfficeId = table.Column<long>(type: "bigint", nullable: true),
                     CreateAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdateAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
@@ -248,34 +248,6 @@ namespace Nebula.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CarAttachments",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    CarId = table.Column<long>(type: "bigint", nullable: false),
-                    AttamentId = table.Column<long>(type: "bigint", nullable: false),
-                    CreateAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdateAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CarAttachments", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_CarAttachments_Attachments_AttamentId",
-                        column: x => x.AttamentId,
-                        principalTable: "Attachments",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CarAttachments_Cars_CarId",
-                        column: x => x.CarId,
-                        principalTable: "Cars",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Rentals",
                 columns: table => new
                 {
@@ -415,16 +387,6 @@ namespace Nebula.Infrastructure.Migrations
                 column: "OfficeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CarAttachments_AttamentId",
-                table: "CarAttachments",
-                column: "AttamentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CarAttachments_CarId",
-                table: "CarAttachments",
-                column: "CarId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_CarCategories_AttachmentId",
                 table: "CarCategories",
                 column: "AttachmentId");
@@ -528,9 +490,6 @@ namespace Nebula.Infrastructure.Migrations
             migrationBuilder.DropForeignKey(
                 name: "FK_Attachments_Cars_CarId",
                 table: "Attachments");
-
-            migrationBuilder.DropTable(
-                name: "CarAttachments");
 
             migrationBuilder.DropTable(
                 name: "Feedbacks");
