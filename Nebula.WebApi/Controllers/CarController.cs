@@ -39,6 +39,10 @@ public class CarController : ControllerBase
     public async Task<IActionResult> DeleteCarAttachmentAsync(long carId, long attachmentId)
         => Ok(await this.mediator.Send(new DeleteCarImageСommand(carId, attachmentId)));
 
+    [HttpGet("get-car-attachments/{id:long}")]
+    public async Task<IActionResult> GetCarAttachmentsAsync(long id)
+        => Ok(await this.mediator.Send(new GetCarAttachmentQuery() { Id = id }));
+
     [HttpGet("get-by-id/{id:long}")]
     public async Task<IActionResult> GetByIdAsync(long id)
         => Ok(await this.mediator.Send(new GetCarQuery() { Id = id }));

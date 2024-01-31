@@ -15,6 +15,7 @@ public static class ServiceCollection
         services.AddTransient<IRequestHandler<GetAllAttachmentsQuery, IEnumerable<AttachmentResultDto>>, GetAllAttachmentsQueryHandler>();
         services.AddTransient<IRequestHandler<CreateCarAttachmentCommand, Attachment>, CreateCarAttachmentCommandHandler>();
         services.AddTransient<IRequestHandler<UpdateCarAttachmentCommand, Attachment>, UpdateCarAttachmentCommandHandler>();
+        services.AddTransient<IRequestHandler<GetCarAttachmentQuery, IEnumerable<FileInformationDto>>, GetCarAttachmentQueryHandler>();
 
         services.AddTransient<IRequestHandler<CreateAttachmentCommand, Attachment>, CreateAttachmentCommandHandler>();
         services.AddTransient<IRequestHandler<DeleteAttachmentCommand, bool>, DeleteAttachmentCommandHandler>();
