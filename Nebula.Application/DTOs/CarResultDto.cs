@@ -2,6 +2,11 @@
 
 public class CarResultDto
 {
+    public CarResultDto()
+    {
+        Attachments = new HashSet<AttachmentResultDto>();
+        Files = new HashSet<FileInformationDto>();
+    }
     public long Id { get; set; }
     public string Model { get; set; }
     public DateTime Year { get; set; }
@@ -11,4 +16,5 @@ public class CarResultDto
     public bool IsAvailable { get; set; } = true;
     public long CarCategoryId { get; set; }
     public ICollection<AttachmentResultDto> Attachments { get; set; }
+    public ICollection<FileInformationDto> Files { get; set; }
 }

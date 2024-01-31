@@ -20,7 +20,26 @@ public class GetAllCarsQueryHandler : IRequestHandler<GetAllCarsQuery, IEnumerab
     public Task<IEnumerable<CarResultDto>> Handle(GetAllCarsQuery request, CancellationToken cancellationToken)
     {
         var cars = this.repository.SelectAll(includes: new[] { "Attachments" }).ToList();
-        var res = mapper.Map<IEnumerable<CarResultDto>>(cars);
-        return Task.FromResult(res);
+        var result = mapper.Map<IEnumerable<CarResultDto>>(cars);
+
+        foreach (var res in result)
+        {
+            foreach (var item in res.Attachments)
+            {
+                var file = new FileInformationDto()
+                {
+                    Exists = System.IO.File.Exists(item.FilePath),
+                    IsDirectory = false,
+                    LastModified = System.IO.File.GetLastWriteTime(item.FilePath),
+                    Length = new FileInfo(item.FilePath).Length,
+                    Name = item.FileName,
+                    PhysicalPath = item.FilePath
+                };
+                
+                res.Files.Add(file);
+            }
+        }
+
+        return Task.FromResult(result);
     }
 }

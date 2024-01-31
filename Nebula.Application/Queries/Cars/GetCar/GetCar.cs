@@ -23,6 +23,23 @@ public class GetCarQueryHandler : IRequestHandler<GetCarQuery, CarResultDto>
         var car = await this.repository.SelectAsync(x => x.Id.Equals(request.Id), includes: new[] { "Attachments" })
             ?? throw new NotFoundException("Car was not found!");
 
-        return mapper.Map<CarResultDto>(car);
+        var res = mapper.Map<CarResultDto>(car);
+
+        foreach (var item in res.Attachments) 
+        {
+            var file = new FileInformationDto()
+            {
+                Exists = System.IO.File.Exists(item.FilePath),
+                IsDirectory = false,
+                LastModified = System.IO.File.GetLastWriteTime(item.FilePath),
+                Length = new FileInfo(item.FilePath).Length,
+                Name = item.FileName,
+                PhysicalPath = item.FilePath
+            };
+
+            res.Files.Add(file);
+        }
+
+        return res;
     }
 }
