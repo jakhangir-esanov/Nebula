@@ -4,16 +4,19 @@ namespace Nebula.Application.Commands.Cars.CreateCarCategory;
 
 public record CreateCarCategoryCommand : IRequest<CarCategory>
 {
-    public CreateCarCategoryCommand(string name, double price, string description, double? discount)
+    public CreateCarCategoryCommand(string name, double fromPrice, 
+        double toPrice, string description, double? discount)
     {
         Name = name;
-        Price = price;
+        FromPrice = fromPrice;
+        ToPrice = toPrice;
         Description = description;
         Discount = discount;
     }
 
     public string Name { get; set; }
-    public double Price { get; set; }
+    public double FromPrice { get; set; }
+    public double ToPrice { get; set; }
     public string Description { get; set; }
     public double? Discount { get; set; }
 }
@@ -36,7 +39,8 @@ public class CreateCarCategoryCommandHandler : IRequestHandler<CreateCarCategory
         var newCarCategory = new CarCategory()
         {
             Name = request.Name,
-            Price = request.Price,
+            FromPrice = request.FromPrice,
+            ToPrice = request.ToPrice,
             Description = request.Description,
             Discount = request.Discount
         };

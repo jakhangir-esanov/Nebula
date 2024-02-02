@@ -9,6 +9,7 @@ public sealed class Car : Auditable
     public DateTime Year { get; set; }
     public string Color { get; set; }
     public string Number { get; set; }
+    public double Price { get; set; }
     public long RegistrationNumber { get; set; }
     public bool IsAvailable { get; set; } = true;
 

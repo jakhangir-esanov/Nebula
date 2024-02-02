@@ -17,7 +17,8 @@ public class CarControllerTest
     public async Task AddCarSuccessfully()
     {
         //Arrange
-        var car = new CreateCarCommand("Venom", DateTime.UtcNow, "red", "A777AA", 3342342, true, 1);
+        var car = new CreateCarCommand("Venom", DateTime.UtcNow, "red", "A777AA", 
+            250, 3342342, true, 1);
 
         //Act
         var result = await this.controller.CreateAsync(car);
@@ -31,7 +32,8 @@ public class CarControllerTest
     public async Task UpdateCarSuccessfully()
     {
         //Arrange
-        var updatedCar = new UpdateCarCommand(1, "UpdatedModel", DateTime.UtcNow, "UpdatedColor", "A555AA", 2342123, false, 2);
+        var updatedCar = new UpdateCarCommand(1, "UpdatedModel", DateTime.UtcNow, "UpdatedColor", 
+            "A555AA", 240, 2342123, false, 2);
 
         //Act
         var result = await this.controller.UpdateAsync(updatedCar);

@@ -19,7 +19,7 @@ public class GetAllCarCategoriesQueryHandler : IRequestHandler<GetAllCarCategori
 
     public Task<IEnumerable<CarCategoryResultDto>> Handle(GetAllCarCategoriesQuery request, CancellationToken cancellationToken)
     {
-        var carCategories = this.repository.SelectAll().ToList();
+        var carCategories = this.repository.SelectAll(includes: new[] { "Cars" }).ToList();
         var res = mapper.Map<IEnumerable<CarCategoryResultDto>>(carCategories);
         return Task.FromResult(res);
     }

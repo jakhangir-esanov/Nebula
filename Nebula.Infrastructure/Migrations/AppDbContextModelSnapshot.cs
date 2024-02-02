@@ -118,6 +118,9 @@ namespace Nebula.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<double>("Price")
+                        .HasColumnType("double precision");
+
                     b.Property<long>("RegistrationNumber")
                         .HasColumnType("bigint");
 
@@ -155,11 +158,14 @@ namespace Nebula.Infrastructure.Migrations
                     b.Property<double?>("Discount")
                         .HasColumnType("double precision");
 
+                    b.Property<double>("FromPrice")
+                        .HasColumnType("double precision");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<double>("Price")
+                    b.Property<double>("ToPrice")
                         .HasColumnType("double precision");
 
                     b.Property<DateTime?>("UpdateAt")

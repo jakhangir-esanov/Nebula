@@ -83,7 +83,8 @@ namespace Nebula.Infrastructure.Migrations
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "text", nullable: false),
-                    Price = table.Column<double>(type: "double precision", nullable: false),
+                    FromPrice = table.Column<double>(type: "double precision", nullable: false),
+                    ToPrice = table.Column<double>(type: "double precision", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
                     Discount = table.Column<double>(type: "double precision", nullable: true),
                     AttachmentId = table.Column<long>(type: "bigint", nullable: true),
@@ -203,6 +204,7 @@ namespace Nebula.Infrastructure.Migrations
                     Year = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Color = table.Column<string>(type: "text", nullable: false),
                     Number = table.Column<string>(type: "text", nullable: false),
+                    Price = table.Column<double>(type: "double precision", nullable: false),
                     RegistrationNumber = table.Column<long>(type: "bigint", nullable: false),
                     IsAvailable = table.Column<bool>(type: "boolean", nullable: false),
                     CarCategoryId = table.Column<long>(type: "bigint", nullable: false),

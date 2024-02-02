@@ -4,14 +4,15 @@ namespace Nebula.Application.Commands.Cars.UpdateCar;
 
 public record UpdateCarCommand : IRequest<Car>
 {
-    public UpdateCarCommand(long id, string model, DateTime year, string color, string number,
-        long registrationNumber, bool isAvailable, long carCategoryId)
+    public UpdateCarCommand(long id, string model, DateTime year, string color, string number, 
+        double price, long registrationNumber, bool isAvailable, long carCategoryId)
     {
         Id = id;
         Model = model;
         Year = year;
         Color = color;
         Number = number;
+        Price = price;
         RegistrationNumber = registrationNumber;
         IsAvailable = isAvailable;
         CarCategoryId = carCategoryId;
@@ -22,6 +23,7 @@ public record UpdateCarCommand : IRequest<Car>
     public DateTime Year { get; set; }
     public string Color { get; set; }
     public string Number { get; set; }
+    public double Price { get; set; }
     public long RegistrationNumber { get; set; }
     public bool IsAvailable { get; set; } = true;
     public long CarCategoryId { get; set; }
@@ -45,6 +47,7 @@ public class UpdateCarCommandHandler : IRequestHandler<UpdateCarCommand, Car>
         car.Year = request.Year;
         car.Color = request.Color;
         car.Number = request.Number;
+        car.Price = request.Price;
         car.RegistrationNumber = request.RegistrationNumber;
         car.IsAvailable = request.IsAvailable;
         car.CarCategoryId = request.CarCategoryId;

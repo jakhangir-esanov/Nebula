@@ -16,7 +16,8 @@ public class CarCategoryController : ControllerBase
 
     [HttpPost("create")]
     public async Task<IActionResult> CreateAsync(CreateCarCategoryCommand command)
-        => Ok(await this.mediator.Send(new CreateCarCategoryCommand(command.Name, command.Price, command.Description, command.Discount)));
+        => Ok(await this.mediator.Send(new CreateCarCategoryCommand(command.Name, command.FromPrice, command.ToPrice, 
+            command.Description, command.Discount)));
 
     [HttpPost("upload-image")]
     public async Task<IActionResult> UploadImageAsync(long carCategoryId, [FromForm] AttachmentCreationDto dto)
@@ -24,7 +25,8 @@ public class CarCategoryController : ControllerBase
 
     [HttpPut("update")]
     public async Task<IActionResult> UpdateAsync(UpdateCarCategoryCommand command)
-        => Ok(await this.mediator.Send(new UpdateCarCategoryCommand(command.Id, command.Name, command.Price, command.Description, command.Discount)));
+        => Ok(await this.mediator.Send(new UpdateCarCategoryCommand(command.Id, command.Name, command.FromPrice, 
+            command.ToPrice, command.Description, command.Discount)));
 
     [HttpPut("update-image")]
     public async Task<IActionResult> UpdateImageAsync(long carCategoryId, [FromForm] AttachmentCreationDto dto)

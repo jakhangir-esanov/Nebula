@@ -4,13 +4,14 @@ namespace Nebula.Application.Commands.Cars.CreateCar;
 
 public record CreateCarCommand : IRequest<Car>
 {
-    public CreateCarCommand(string model, DateTime year, string color, string number,
-        long registrationNumber, bool isAvailable, long carCategoryId)
+    public CreateCarCommand(string model, DateTime year, string color, string number, 
+        double price, long registrationNumber, bool isAvailable, long carCategoryId)
     {
         Model = model;
         Year = year;
         Color = color;
         Number = number;
+        Price = price;
         RegistrationNumber = registrationNumber;
         IsAvailable = isAvailable;
         CarCategoryId = carCategoryId;
@@ -20,6 +21,7 @@ public record CreateCarCommand : IRequest<Car>
     public DateTime Year { get; set; }
     public string Color { get; set; }
     public string Number { get; set; }
+    public double Price { get; set; }
     public long RegistrationNumber { get; set; }
     public bool IsAvailable { get; set; } = true;
     public long CarCategoryId { get; set; }
@@ -46,6 +48,7 @@ public class CreateCarCommandHandler : IRequestHandler<CreateCarCommand, Car>
             Year = request.Year,
             Color = request.Color,
             Number = request.Number,
+            Price = request.Price,
             RegistrationNumber = request.RegistrationNumber,
             IsAvailable = request.IsAvailable,
             CarCategoryId = request.CarCategoryId

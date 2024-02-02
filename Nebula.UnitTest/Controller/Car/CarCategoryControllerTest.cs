@@ -21,7 +21,7 @@ public class CarCategoryControllerTest
     public async Task AddCarCategorySuccessfully()
     {
         //Arrange 
-        var carCategory = new CreateCarCategoryCommand("name", 25, "description", 250);
+        var carCategory = new CreateCarCategoryCommand("name", 25, 250, "description", 250);
 
         //Act
         var result = await controller.CreateAsync(carCategory);
@@ -35,7 +35,7 @@ public class CarCategoryControllerTest
     public async Task UpdateCarCategorySuccessfully()
     {
         //Arrrange 
-        var updateCarCategory = new UpdateCarCategoryCommand(1, "updateName", 21, "updateDescription", 0);
+        var updateCarCategory = new UpdateCarCategoryCommand(1, "updateName", 21, 240, "updateDescription", 0);
 
         //Act
         var result = await this.controller.UpdateAsync(updateCarCategory);
