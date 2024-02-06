@@ -41,6 +41,7 @@ public class UpdateRentalCommandHandler : IRequestHandler<UpdateRentalCommand, R
 
         rental.CustomerId = request.CustomerId;
         rental.CarId = request.CarId;
+        rental.TotalPrice = (request.EndDate - request.StartDate).Days * car.Price;
         rental.StartDate = request.StartDate;
         rental.EndDate = request.EndDate;
 

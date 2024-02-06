@@ -42,6 +42,7 @@ public class CreateRentalCommandHandler : IRequestHandler<CreateRentalCommand, R
         {
             CustomerId = request.CustomerId,
             CarId = request.CarId,
+            TotalPrice = (request.EndDate - request.StartDate).Days * car.Price,
             StartDate = request.StartDate,
             EndDate = request.EndDate,
         };
