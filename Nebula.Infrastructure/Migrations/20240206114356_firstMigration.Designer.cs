@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Nebula.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240202080650_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20240206114356_firstMigration")]
+    partial class firstMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -750,9 +750,9 @@ namespace Nebula.Infrastructure.Migrations
             modelBuilder.Entity("Nebula.Domain.Entities.Rentals.Rental", b =>
                 {
                     b.HasOne("Nebula.Domain.Entities.Cars.Car", "Car")
-                        .WithMany()
+                        .WithMany("Rentals")
                         .HasForeignKey("CarId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("Nebula.Domain.Entities.People.Customer", "Customer")
@@ -774,6 +774,8 @@ namespace Nebula.Infrastructure.Migrations
             modelBuilder.Entity("Nebula.Domain.Entities.Cars.Car", b =>
                 {
                     b.Navigation("Attachments");
+
+                    b.Navigation("Rentals");
                 });
 
             modelBuilder.Entity("Nebula.Domain.Entities.Cars.CarCategory", b =>

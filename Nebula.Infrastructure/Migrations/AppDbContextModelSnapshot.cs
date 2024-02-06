@@ -747,9 +747,9 @@ namespace Nebula.Infrastructure.Migrations
             modelBuilder.Entity("Nebula.Domain.Entities.Rentals.Rental", b =>
                 {
                     b.HasOne("Nebula.Domain.Entities.Cars.Car", "Car")
-                        .WithMany()
+                        .WithMany("Rentals")
                         .HasForeignKey("CarId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("Nebula.Domain.Entities.People.Customer", "Customer")
@@ -771,6 +771,8 @@ namespace Nebula.Infrastructure.Migrations
             modelBuilder.Entity("Nebula.Domain.Entities.Cars.Car", b =>
                 {
                     b.Navigation("Attachments");
+
+                    b.Navigation("Rentals");
                 });
 
             modelBuilder.Entity("Nebula.Domain.Entities.Cars.CarCategory", b =>

@@ -6,6 +6,7 @@ public class CarResultDto
     {
         Attachments = new HashSet<AttachmentResultDto>();
         Files = new HashSet<FileInformationDto>();
+        Rentals = new HashSet<RentalResultDto>();
     }
     public long Id { get; set; }
     public string Model { get; set; }
@@ -18,4 +19,5 @@ public class CarResultDto
     public long CarCategoryId { get; set; }
     public ICollection<AttachmentResultDto> Attachments { get; set; }
     public ICollection<FileInformationDto> Files { get; set; }
+    public ICollection<RentalResultDto> Rentals { get; set; }
 }
