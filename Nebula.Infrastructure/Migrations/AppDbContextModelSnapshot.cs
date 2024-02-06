@@ -568,6 +568,9 @@ namespace Nebula.Infrastructure.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<double>("TotalPrice")
+                        .HasColumnType("double precision");
+
                     b.Property<DateTime?>("UpdateAt")
                         .HasColumnType("timestamp with time zone");
 
