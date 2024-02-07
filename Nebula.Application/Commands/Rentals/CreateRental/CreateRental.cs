@@ -27,7 +27,7 @@ public class CreateRentalCommandHandler : IRequestHandler<CreateRentalCommand, R
     public async Task<Rental> Handle(CreateRentalCommand request, CancellationToken cancellationToken)
     {
         var rental = await repository.SelectAsync(x => x.CustomerId.Equals(request.CustomerId));
-        if (rental is not null)
+        if (rental is not null && rental.EndDate >= DateTime.Today)
             throw new AlreadyExistException("Rental is already exist!");
 
         var newRental = new Rental()
