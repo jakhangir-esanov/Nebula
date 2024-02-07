@@ -256,8 +256,6 @@ namespace Nebula.Infrastructure.Migrations
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     CustomerId = table.Column<long>(type: "bigint", nullable: false),
-                    CarId = table.Column<long>(type: "bigint", nullable: false),
-                    TotalPrice = table.Column<double>(type: "double precision", nullable: false),
                     StartDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     EndDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     CreateAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
@@ -267,14 +265,37 @@ namespace Nebula.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_Rentals", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Rentals_Cars_CarId",
-                        column: x => x.CarId,
-                        principalTable: "Cars",
-                        principalColumn: "Id");
-                    table.ForeignKey(
                         name: "FK_Rentals_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CarRental",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CarId = table.Column<long>(type: "bigint", nullable: false),
+                    RentalId = table.Column<long>(type: "bigint", nullable: false),
+                    CreateAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdateAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CarRental", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CarRental_Cars_CarId",
+                        column: x => x.CarId,
+                        principalTable: "Cars",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CarRental_Rentals_RentalId",
+                        column: x => x.RentalId,
+                        principalTable: "Rentals",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -394,6 +415,16 @@ namespace Nebula.Infrastructure.Migrations
                 column: "AttachmentId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CarRental_CarId",
+                table: "CarRental",
+                column: "CarId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CarRental_RentalId",
+                table: "CarRental",
+                column: "RentalId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Cars_CarCategoryId",
                 table: "Cars",
                 column: "CarCategoryId");
@@ -459,11 +490,6 @@ namespace Nebula.Infrastructure.Migrations
                 column: "RentalId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Rentals_CarId",
-                table: "Rentals",
-                column: "CarId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Rentals_CustomerId",
                 table: "Rentals",
                 column: "CustomerId");
@@ -492,6 +518,9 @@ namespace Nebula.Infrastructure.Migrations
             migrationBuilder.DropForeignKey(
                 name: "FK_Attachments_Cars_CarId",
                 table: "Attachments");
+
+            migrationBuilder.DropTable(
+                name: "CarRental");
 
             migrationBuilder.DropTable(
                 name: "Feedbacks");

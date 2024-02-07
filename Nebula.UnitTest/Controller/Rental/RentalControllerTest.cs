@@ -17,7 +17,7 @@ public class RentalControllerTest
     public async Task AddRentalSuccessfully()
     {
         //Arrange 
-        var rental = new CreateRentalCommand(1, 1, DateTime.UtcNow, DateTime.UtcNow);
+        var rental = new CreateRentalCommand(1, DateTime.UtcNow, DateTime.UtcNow);
 
         //Act
         var result = await this.controller.CreateAsync(rental);
@@ -31,7 +31,7 @@ public class RentalControllerTest
     public async Task UpdateRentalSuccessfully()
     {
         //Arrange 
-        var updatedRental = new UpdateRentalCommand(1, 2, 2, DateTime.UtcNow, DateTime.UtcNow);
+        var updatedRental = new UpdateRentalCommand(1, 2, DateTime.UtcNow, DateTime.UtcNow);
 
         //Act
         var result = await this.controller.UpdateAsync(updatedRental);

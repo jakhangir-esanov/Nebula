@@ -545,7 +545,7 @@ namespace Nebula.Infrastructure.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Nebula.Domain.Entities.Rentals.Rental", b =>
+            modelBuilder.Entity("Nebula.Domain.Entities.Rentals.CarRental", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -559,6 +559,32 @@ namespace Nebula.Infrastructure.Migrations
                     b.Property<DateTime>("CreateAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<long>("RentalId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("UpdateAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CarId");
+
+                    b.HasIndex("RentalId");
+
+                    b.ToTable("CarRental");
+                });
+
+            modelBuilder.Entity("Nebula.Domain.Entities.Rentals.Rental", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<long>("CustomerId")
                         .HasColumnType("bigint");
 
@@ -568,15 +594,10 @@ namespace Nebula.Infrastructure.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<double>("TotalPrice")
-                        .HasColumnType("double precision");
-
                     b.Property<DateTime?>("UpdateAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CarId");
 
                     b.HasIndex("CustomerId");
 
@@ -747,21 +768,32 @@ namespace Nebula.Infrastructure.Migrations
                     b.Navigation("Office");
                 });
 
-            modelBuilder.Entity("Nebula.Domain.Entities.Rentals.Rental", b =>
+            modelBuilder.Entity("Nebula.Domain.Entities.Rentals.CarRental", b =>
                 {
                     b.HasOne("Nebula.Domain.Entities.Cars.Car", "Car")
-                        .WithMany("Rentals")
+                        .WithMany("CarRentals")
                         .HasForeignKey("CarId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Nebula.Domain.Entities.Rentals.Rental", "Rental")
+                        .WithMany("CarRentals")
+                        .HasForeignKey("RentalId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Car");
+
+                    b.Navigation("Rental");
+                });
+
+            modelBuilder.Entity("Nebula.Domain.Entities.Rentals.Rental", b =>
+                {
                     b.HasOne("Nebula.Domain.Entities.People.Customer", "Customer")
                         .WithMany()
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Car");
 
                     b.Navigation("Customer");
                 });
@@ -775,7 +807,7 @@ namespace Nebula.Infrastructure.Migrations
                 {
                     b.Navigation("Attachments");
 
-                    b.Navigation("Rentals");
+                    b.Navigation("CarRentals");
                 });
 
             modelBuilder.Entity("Nebula.Domain.Entities.Cars.CarCategory", b =>
@@ -800,6 +832,11 @@ namespace Nebula.Infrastructure.Migrations
             modelBuilder.Entity("Nebula.Domain.Entities.People.Customer", b =>
                 {
                     b.Navigation("PaymentHistories");
+                });
+
+            modelBuilder.Entity("Nebula.Domain.Entities.Rentals.Rental", b =>
+                {
+                    b.Navigation("CarRentals");
                 });
 #pragma warning restore 612, 618
         }

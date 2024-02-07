@@ -1,7 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Nebula.Application.Commands.Rentals.CreateCarRental;
+using Nebula.Application.Commands.Rentals.DeleteCarRental;
+using Nebula.Application.Commands.Rentals.UpdateCarRental;
 using Nebula.Application.Queries.Attachments;
+using Nebula.Application.Queries.Rentals.GetCarRental;
 using System.Text;
 
 namespace Nebula.WebApi.Extentions;
@@ -133,6 +137,12 @@ public static class ServiceCollection
         services.AddTransient<IRequestHandler<GetRentalQuery, RentalResultDto>, GetRentalQueryHandler>();
 
         services.AddTransient<IRequestHandler<GetAllRentalsQuery, IEnumerable<RentalResultDto>>, GetAllRentalsQueryHandler>();
+
+        services.AddTransient<IRequestHandler<CreateCarRentalCommand, CarRental>, CreateCarRentalCommandHandler>();
+        services.AddTransient<IRequestHandler<UpdateCarRentalCommand, CarRental>, UpdateCarRentalCommandHandler>();
+        services.AddTransient<IRequestHandler<DeleteCarRentalCommand, bool>, DeleteCarRentalCommandHandler>();
+        services.AddTransient<IRequestHandler<GetCarRentalQuery, CarRentalResultDto>, GetCarRentalQueryHandler>();
+        services.AddTransient<IRequestHandler<GetAllCarRentalsQuery, IEnumerable<CarRentalResultDto>>, GetAllCarRentalsQueryHandler>();
     }
 
     public static void AddJwt(this IServiceCollection services, IConfiguration configuration)

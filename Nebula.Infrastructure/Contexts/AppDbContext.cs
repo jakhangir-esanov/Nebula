@@ -45,6 +45,20 @@ public class AppDbContext : DbContext
             .WithMany(x => x.OfficeAttachments)
             .HasForeignKey(x => x.AttachmentId);
 
+        //Many-to-many realition for Car and Rental
+        modelBuilder.Entity<CarRental>()
+            .HasKey(x => x.Id);
+
+        modelBuilder.Entity<CarRental>()
+            .HasOne(x => x.Car)
+            .WithMany(x => x.CarRentals)
+            .HasForeignKey(x => x.CarId);
+
+        modelBuilder.Entity<CarRental>()
+            .HasOne(x => x.Rental)
+            .WithMany(x => x.CarRentals)
+            .HasForeignKey(x => x.RentalId);
+
         //One-to-many realition for Car and Attachment
         modelBuilder.Entity<Car>()
             .HasMany(x => x.Attachments)
@@ -53,16 +67,6 @@ public class AppDbContext : DbContext
         modelBuilder.Entity<Attachment>()
             .HasOne(x => x.Car)
             .WithMany(x => x.Attachments)
-            .OnDelete(DeleteBehavior.NoAction);
-
-        //One-to-Many realition for Car and Rental
-        modelBuilder.Entity<Car>()
-            .HasMany(x => x.Rentals)
-            .WithOne(x => x.Car);
-
-        modelBuilder.Entity<Rental>()
-            .HasOne(x => x.Car)
-            .WithMany(x => x.Rentals)
             .OnDelete(DeleteBehavior.NoAction);
 
         //One-to-many realition for CarCategory and Car
