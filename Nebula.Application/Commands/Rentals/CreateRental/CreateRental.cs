@@ -4,14 +4,16 @@ namespace Nebula.Application.Commands.Rentals.CreateRental;
 
 public record CreateRentalCommand : IRequest<Rental>
 {
-    public CreateRentalCommand(long customerId, DateTime startDate, DateTime endDate)
+    public CreateRentalCommand(long customerId, long carId, DateTime startDate, DateTime endDate)
     {
         CustomerId = customerId;
+        CarId = carId;
         StartDate = startDate;
         EndDate = endDate;
     }
 
     public long CustomerId { get; set; }
+    public long CarId { get; set; }
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }
 }
@@ -33,6 +35,7 @@ public class CreateRentalCommandHandler : IRequestHandler<CreateRentalCommand, R
         var newRental = new Rental()
         {
             CustomerId = request.CustomerId,
+            CarId = request.CarId,
             StartDate = request.StartDate,
             EndDate = request.EndDate,
         };

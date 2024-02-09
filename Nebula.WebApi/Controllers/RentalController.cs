@@ -16,12 +16,12 @@ public class RentalController : ControllerBase
 
     [HttpPost("create")]
     public async Task<IActionResult> CreateAsync(CreateRentalCommand command)
-        => Ok(await this.mediator.Send(new CreateRentalCommand(command.CustomerId,command.StartDate, command.EndDate)));
+        => Ok(await this.mediator.Send(new CreateRentalCommand(command.CustomerId, command.CarId, command.StartDate, command.EndDate)));
 
     [HttpPut("update")]
     public async Task<IActionResult> UpdateAsync(UpdateRentalCommand command)
         => Ok(await this.mediator.Send(new UpdateRentalCommand(command.Id,
-            command.CustomerId, command.StartDate, command.EndDate)));
+            command.CustomerId, command.CarId, command.StartDate, command.EndDate)));
 
     [HttpDelete("delete/{id:long}")]
     public async Task<IActionResult> DeleteAsync(long id)

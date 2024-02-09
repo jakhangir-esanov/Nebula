@@ -26,7 +26,6 @@ public class MappingProfile : Profile
         CreateMap<PaymentHistoryResultDto, PaymentHistory>().ReverseMap();
         CreateMap<PaymentResultDto, Payment>().ReverseMap();
         CreateMap<RentalResultDto, Rental>().ReverseMap();
-        CreateMap<CarRentalResultDto, CarRental>().ReverseMap();
         CreateMap<UserResultDto, User>().ReverseMap();
     }
 }

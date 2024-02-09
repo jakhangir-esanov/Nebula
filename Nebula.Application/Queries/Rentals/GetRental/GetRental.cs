@@ -20,7 +20,7 @@ public class GetRentalQueryHandler : IRequestHandler<GetRentalQuery, RentalResul
 
     public async Task<RentalResultDto> Handle(GetRentalQuery request, CancellationToken cancellationToken)
     {
-        var rental = await this.repository.SelectAsync(x => x.Id.Equals(request.Id), includes: new[] { "CarRentals" })
+        var rental = await this.repository.SelectAsync(x => x.Id.Equals(request.Id))
             ?? throw new NotFoundException("Rental was not found!");
 
         return mapper.Map<RentalResultDto>(rental);

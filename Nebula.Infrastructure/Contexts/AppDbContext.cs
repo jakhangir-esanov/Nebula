@@ -45,19 +45,15 @@ public class AppDbContext : DbContext
             .WithMany(x => x.OfficeAttachments)
             .HasForeignKey(x => x.AttachmentId);
 
-        //Many-to-many realition for Car and Rental
-        modelBuilder.Entity<CarRental>()
-            .HasKey(x => x.Id);
+        //One-to-many realition for Car and Rental
+        modelBuilder.Entity<Car>()
+            .HasMany(x => x.Rentals)
+            .WithOne(x => x.Car);
 
-        modelBuilder.Entity<CarRental>()
+        modelBuilder.Entity<Rental>()
             .HasOne(x => x.Car)
-            .WithMany(x => x.CarRentals)
-            .HasForeignKey(x => x.CarId);
-
-        modelBuilder.Entity<CarRental>()
-            .HasOne(x => x.Rental)
-            .WithMany(x => x.CarRentals)
-            .HasForeignKey(x => x.RentalId);
+            .WithMany(x => x.Rentals)
+            .OnDelete(DeleteBehavior.NoAction);
 
         //One-to-many realition for Car and Attachment
         modelBuilder.Entity<Car>()

@@ -19,7 +19,7 @@ public class GetAllRentalsQueryHandler : IRequestHandler<GetAllRentalsQuery, IEn
 
     public async Task<IEnumerable<RentalResultDto>> Handle(GetAllRentalsQuery request, CancellationToken cancellationToken)
     {
-        var rental = this.repository.SelectAll(includes: new[] { "CarRentals" }).ToList();
+        var rental = this.repository.SelectAll().ToList();
         var res = mapper.Map<IEnumerable<RentalResultDto>>(rental);
         return res;
     }

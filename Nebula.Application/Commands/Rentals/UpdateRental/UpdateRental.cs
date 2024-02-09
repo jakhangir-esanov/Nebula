@@ -4,16 +4,18 @@ namespace Nebula.Application.Commands.Rentals.UpdateRental;
 
 public record UpdateRentalCommand : IRequest<Rental>
 {
-    public UpdateRentalCommand(long id, long customerId, DateTime startDate, DateTime endDate)
+    public UpdateRentalCommand(long id, long customerId, long carId, DateTime startDate, DateTime endDate)
     {
         Id = id;
         CustomerId = customerId;
+        CarId = carId;
         StartDate = startDate;
         EndDate = endDate;
     }
 
     public long Id { get; set; }
     public long CustomerId { get; set; }
+    public long CarId { get; set; }
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }
 }
@@ -32,6 +34,7 @@ public class UpdateRentalCommandHandler : IRequestHandler<UpdateRentalCommand, R
             ?? throw new NotFoundException("Rental was not found!");
 
         rental.CustomerId = request.CustomerId;
+        rental.CarId = request.CarId;
         rental.StartDate = request.StartDate;
         rental.EndDate = request.EndDate;
 

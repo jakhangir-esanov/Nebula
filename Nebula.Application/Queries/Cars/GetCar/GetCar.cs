@@ -21,7 +21,7 @@ public class GetCarQueryHandler : IRequestHandler<GetCarQuery, CarResultDto>
     public async Task<CarResultDto> Handle(GetCarQuery request, CancellationToken cancellationToken)
     {
         var car = await this.repository.SelectAsync(x => x.Id.Equals(request.Id), 
-            includes: new[] { "Attachments", "CarRentals" })
+            includes: new[] { "Attachments", "Rentals" })
             ?? throw new NotFoundException("Car was not found!");
 
         var res = mapper.Map<CarResultDto>(car);
